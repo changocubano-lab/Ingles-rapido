@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inglés rápido</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#b4461b">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Inglés">
+<style>
+:root{--bg:#faf8f4;--card:#fff;--ink:#1d1b18;--muted:#6b665d;--line:#e7e2d8;--accent:#b4461b;--accent-soft:#fbe9df;--ok:#2f7a3d;--ok-soft:#e3f2e5;--bad:#b3261e;--bad-soft:#fbe3e1}
+@media (prefers-color-scheme:dark){:root{--bg:#171513;--card:#211e1b;--ink:#f2eee8;--muted:#a59f94;--line:#35312c;--accent:#f08a5d;--accent-soft:#3a271e;--ok:#7fcf8d;--ok-soft:#1f3323;--bad:#f2867e;--bad-soft:#3a1f1d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 16px 0}
+.wrap{max-width:720px;margin:0 auto}
+h1{font-size:20px;margin:0 0 2px;font-weight:700}
+.sub{color:var(--muted);font-size:14px;margin:0 0 10px}
+.seg{display:flex;gap:6px;margin-bottom:10px}
+.seg button{flex:1;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#fff}
+nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}nav::-webkit-scrollbar{display:none}
+nav button{flex:none;white-space:nowrap;font-size:15px;padding-left:12px!important;padding-right:12px!important;border:0;background:none;color:var(--muted);padding:10px 4px 12px;font:inherit;font-weight:600;border-bottom:3px solid transparent;cursor:pointer}
+nav button[aria-selected=true]{color:var(--accent);border-bottom-color:var(--accent)}
+main{padding:14px 16px 60px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:6px;scrollbar-width:none}
+.chips button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:6px 12px;border-radius:999px;font:inherit;font-size:14px;cursor:pointer;white-space:nowrap}
+.chips button[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;gap:10px;align-items:center}
+.card .txt{flex:1;min-width:0}
+.en{font-weight:650;font-size:17px}
+.pr{color:var(--accent);font-size:16px;margin-top:2px}
+.tr{color:var(--muted);font-size:14px;margin-top:2px}
+.who{font-weight:700;color:var(--muted);width:20px;flex:none;text-align:center}
+.btns{display:flex;gap:6px;flex:none}
+.play{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--accent-soft);color:var(--accent);font-size:18px;cursor:pointer;display:grid;place-items:center}
+.play.slow{background:var(--card);font-size:16px}
+.play:active{transform:scale(.94)}
+.note{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:10px 12px;color:var(--muted);font-size:14px;margin-bottom:12px}
+.playall{width:100%;margin:2px 0 12px;padding:10px;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+h2{font-size:17px;margin:18px 0 8px}
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.qhead{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin-bottom:10px}
+.qen{font-size:22px;font-weight:700;margin:6px 0 2px}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opts button{text-align:left;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer}
+.opts button.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);font-weight:600}
+.opts button.bad{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.fb{min-height:24px;margin-top:10px;font-weight:600}
+.next{margin-top:8px;width:100%;padding:12px;border-radius:12px;border:0;background:var(--accent);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.row{display:flex;gap:8px;align-items:center}
+.modes{display:flex;gap:6px;margin-bottom:12px}
+.modes button{flex:1;padding:8px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14px;cursor:pointer}
+.modes button[aria-pressed=true]{border-color:var(--accent);color:var(--accent);font-weight:600;background:var(--accent-soft)}
+.hidden{display:none}
+.docs{display:block;margin-top:16px;padding:14px;border-radius:14px;border:1px solid var(--accent);background:var(--accent-soft);color:var(--ink);text-decoration:none}.docs b{display:block;color:var(--accent);margin-bottom:2px}.docs span{font-size:14px;color:var(--muted)}
+.inp{display:flex;gap:8px;margin:4px 0 10px}.inp input{flex:1;min-width:0;font:inherit;font-size:18px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.inp button{border:0;border-radius:12px;background:var(--accent);color:#fff;font:inherit;font-weight:700;padding:0 16px;cursor:pointer}
+.res{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px}
+.res .big2{font-size:26px;font-weight:700;color:var(--accent);margin:2px 0 8px;word-break:break-word}
+.chunks{display:grid;gap:6px;margin-top:10px}
+.ck{display:grid;grid-template-columns:auto auto 1fr;gap:4px 10px;align-items:baseline;padding:8px 10px;border-radius:10px;background:var(--bg)}
+.ck b{font-size:18px}.ck .s{color:var(--accent);font-weight:650}.ck .t{grid-column:1/-1;color:var(--muted);font-size:13px}
+.nw{display:inline-block;margin-top:4px;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:99px;padding:3px 9px;border:0;cursor:pointer}
+.irr{background:var(--accent-soft);color:var(--accent);border-radius:10px;padding:8px 10px;font-size:14px;font-weight:600;margin-top:8px}
+.snd{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:10px}
+.snd.easy{border-style:dashed}.snd h3{margin:0 0 4px;font-size:17px}.snd p{margin:0 0 8px;color:var(--muted);font-size:15px}
+.exs{display:flex;flex-wrap:wrap;gap:6px}.ex{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:99px;padding:5px 10px 5px 6px;background:var(--bg);font:inherit;font-size:14px;color:var(--ink);cursor:pointer}
+.ex i{font-style:normal;color:var(--accent)}.badge{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ok)}
+.flash{animation:fl 1.2s}@keyframes fl{0%{box-shadow:0 0 0 3px var(--accent)}100%{box-shadow:none}}
+.prog{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 14px}
+.prog i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.day{aspect-ratio:1;width:100%;min-width:0;padding:0;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-weight:700;cursor:pointer;display:grid;place-items:center;position:relative}
+.day.done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.day.rev{border-style:dashed}
+.day.next{border:2px solid var(--accent);color:var(--accent)}
+.big{width:100%;padding:14px;border-radius:12px;border:0;background:var(--accent);color:#fff;font:inherit;font-weight:700;font-size:17px;cursor:pointer;margin:6px 0 16px}
+.ghost{background:none;border:0;color:var(--accent);font:inherit;font-weight:600;cursor:pointer;padding:6px 0;margin-bottom:6px}
+.step{color:var(--muted);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin:4px 0 6px}
+.said{border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:99px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer;margin-top:6px}
+.said[aria-pressed=true]{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);font-weight:600}
+.challenge{background:var(--accent-soft);border-radius:14px;padding:14px;margin:12px 0}
+.legend{color:var(--muted);font-size:13px;margin-top:10px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1 id="title"></h1>
+  <p class="sub" id="subtitle"></p>
+  <div class="seg" role="group" aria-label="Idioma / Idioma">
+    <button id="lang-es" aria-pressed="true">🇪🇸 Español</button>
+    <button id="lang-pt" aria-pressed="false">🇧🇷 Português</button>
+  </div>
+  <nav role="tablist">
+    <button role="tab" data-tab="course" aria-selected="true" id="tab-course"></button>
+    <button role="tab" data-tab="read" aria-selected="false" id="tab-read"></button>
+    <button role="tab" data-tab="sounds" aria-selected="false" id="tab-sounds"></button>
+    <button role="tab" data-tab="phrases" aria-selected="false" id="tab-phrases"></button>
+    <button role="tab" data-tab="dialogs" aria-selected="false" id="tab-dialogs"></button>
+    <button role="tab" data-tab="quiz" aria-selected="false" id="tab-quiz"></button>
+  </nav>
+</div></header>
+<main class="wrap">
+  <div id="inst" class="note hidden" style="border-style:solid;border-color:var(--accent);color:var(--ink)"><b>📲 Instala esta app en tu teléfono</b><div style="margin:6px 0 8px">En iPhone: toca Compartir ⬆️ y luego "Agregar a inicio". En Android: menú ⋮ → "Instalar app" o "Agregar a la pantalla principal".</div><button id="instgo" class="hidden" style="border:0;border-radius:10px;background:var(--accent);color:#fff;font:inherit;font-weight:700;padding:8px 14px;margin-right:8px">Instalar</button><button id="instx" style="border:0;background:none;color:var(--accent);font:inherit;font-weight:600">Cerrar</button></div>
+  <div id="noaudio" class="note hidden"></div>
+  <section id="view-course"></section>
+  <section id="view-read" class="hidden"></section>
+  <section id="view-sounds" class="hidden"></section>
+  <section id="view-phrases" class="hidden">
+    <div class="chips" id="cats"></div>
+    <div id="list"></div>
+  </section>
+  <section id="view-dialogs" class="hidden">
+    <div class="chips" id="dcats"></div>
+    <div id="dlist"></div>
+  </section>
+  <section id="view-quiz" class="hidden">
+    <div class="modes" id="modes"></div>
+    <div class="quiz" id="quiz"></div>
+  </section>
+</main>
+<script>
+/* English spelling -> phonemes -> Spanish / Portuguese respelling. Rule-based, approximate. */
+const ENG = (() => {
+const V = new Set(["AA","AE","AH","AO","AW","AY","EH","ER","EY","IH","IY","OW","OY","UH","UW"]);
+const VOW = "aeiou";
+const isV = c => c && VOW.includes(c);
+const isC = c => c && /[a-z]/.test(c) && !VOW.includes(c);
+
+// Irregular common words, ARPAbet-like; digit 1 marks stressed vowel.
+const EXC = {
+the:"DH AH1",a:"AH1",of:"AH1 V",to:"T UW1",do:"D UW1",does:"D AH1 Z",done:"D AH1 N",who:"HH UW1",whose:"HH UW1 Z",whom:"HH UW1 M",
+you:"Y UW1",your:"Y AO1 R","you're":"Y AO1 R",are:"AA1 R",were:"W ER1",was:"W AH1 Z",is:"IH1 Z",his:"HH IH1 Z",has:"HH AE1 Z",as:"AE1 Z",
+have:"HH AE1 V",give:"G IH1 V",live:"L IH1 V",love:"L AH1 V",above:"AH B AH1 V",move:"M UW1 V",lose:"L UW1 Z",come:"K AH1 M",some:"S AH1 M",
+one:"W AH1 N",once:"W AH1 N S",two:"T UW1",four:"F AO1 R",eight:"EY1 T",said:"S EH1 D",says:"S EH1 Z",again:"AH G EH1 N",any:"EH1 N IY",many:"M EH1 N IY",
+been:"B IH1 N",they:"DH EY1",their:"DH EH1 R",there:"DH EH1 R",where:"W EH1 R",here:"HH IH1 R",were:"W ER1",what:"W AH1 T",want:"W AA1 N T",
+from:"F R AH1 M",could:"K UH1 D",would:"W UH1 D",should:"SH UH1 D",put:"P UH1 T",push:"P UH1 SH",pull:"P UH1 L",full:"F UH1 L",
+good:"G UH1 D",book:"B UH1 K",look:"L UH1 K",took:"T UH1 K",cook:"K UH1 K",foot:"F UH1 T",wood:"W UH1 D",stood:"S T UH1 D",
+door:"D AO1 R",floor:"F L AO1 R",blood:"B L AH1 D",flood:"F L AH1 D",
+eye:"AY1",buy:"B AY1",guy:"G AY1",bye:"B AY1",
+hour:"AW1 ER",our:"AW1 ER",honest:"AA1 N AH S T",
+friend:"F R EH1 N D",people:"P IY1 P AH L",woman:"W UH1 M AH N",women:"W IH1 M IH N",
+busy:"B IH1 Z IY",business:"B IH1 Z N AH S",build:"B IH1 L D",built:"B IH1 L T",
+laugh:"L AE1 F",enough:"IH N AH1 F",tough:"T AH1 F",rough:"R AH1 F",cough:"K AO1 F",though:"DH OW1",through:"TH R UW1",
+thought:"TH AO1 T",bought:"B AO1 T",brought:"B R AO1 T",caught:"K AO1 T",taught:"T AO1 T",daughter:"D AO1 T ER",
+water:"W AO1 T ER",father:"F AA1 DH ER",mother:"M AH1 DH ER",brother:"B R AH1 DH ER",other:"AH1 DH ER",another:"AH N AH1 DH ER",
+money:"M AH1 N IY",honey:"HH AH1 N IY",monday:"M AH1 N D EY",month:"M AH1 N TH",front:"F R AH1 N T",son:"S AH1 N",won:"W AH1 N",
+wednesday:"W EH1 N Z D EY",island:"AY1 L AH N D",listen:"L IH1 S AH N",often:"AO1 F AH N",answer:"AE1 N S ER",
+know:"N OW1",knew:"N UW1",show:"SH OW1",snow:"S N OW1",how:"HH AW1",now:"N AW1",cow:"K AW1",
+very:"V EH1 R IY",every:"EH1 V R IY",city:"S IH1 T IY",pretty:"P R IH1 T IY",only:"OW1 N L IY",
+head:"HH EH1 D",bread:"B R EH1 D",dead:"D EH1 D",ready:"R EH1 D IY",heavy:"HH EH1 V IY",breakfast:"B R EH1 K F AH S T",
+great:"G R EY1 T",break:"B R EY1 K",steak:"S T EY1 K",weather:"W EH1 DH ER",health:"HH EH1 L TH",already:"AO L R EH1 D IY",
+learn:"L ER1 N",early:"ER1 L IY",earth:"ER1 TH",heard:"HH ER1 D",search:"S ER1 CH",bear:"B EH1 R",wear:"W EH1 R",pear:"P EH1 R",
+four:"F AO1 R",pour:"P AO1 R",course:"K AO1 R S",
+get:"G EH1 T",give:"G IH1 V",girl:"G ER1 L",begin:"B IH G IH1 N",together:"T AH G EH1 DH ER",
+gone:"G AO1 N",none:"N AH1 N",shoe:"SH UW1",
+most:"M OW1 S T",post:"P OW1 S T",host:"HH OW1 S T",ghost:"G OW1 S T",both:"B OW1 TH",
+child:"CH AY1 L D",children:"CH IH1 L D R AH N",
+sugar:"SH UH1 G ER",sure:"SH UH1 R",
+iron:"AY1 ER N",idea:"AY D IY1 AH",area:"EH1 R IY AH",
+cafe:"K AE F EY1",police:"P AH L IY1 S",machine:"M AH SH IY1 N",
+english:"IH1 NG G L IH SH",
+i:"AY1",me:"M IY1",he:"HH IY1",she:"SH IY1",we:"W IY1",be:"B IY1",
+my:"M AY1",by:"B AY1",why:"W AY1",
+yes:"Y EH1 S",no:"N OW1",go:"G OW1",so:"S OW1",
+and:"AE1 N D",an:"AE1 N",at:"AE1 T",or:"AO1 R",for:"F AO1 R",with:"W IH1 TH",without:"W IH TH AW1 T",
+this:"DH IH1 S",that:"DH AE1 T",these:"DH IY1 Z",those:"DH OW1 Z",them:"DH EH1 M",then:"DH EH1 N",than:"DH AE1 N",
+please:"P L IY1 Z",juice:"JH UW1 S",fruit:"F R UW1 T",guess:"G EH1 S",guitar:"G IH T AA1 R",guest:"G EH1 S T",
+watch:"W AA1 CH",wash:"W AA1 SH",warm:"W AO1 R M",war:"W AO1 R",
+doctor:"D AA1 K T ER",hospital:"HH AA1 S P IH T AH L",family:"F AE1 M AH L IY",
+banana:"B AH N AE1 N AH",tomato:"T AH M EY1 T OW",potato:"P AH T EY1 T OW",
+apartment:"AH P AA1 R T M AH N T",appointment:"AH P OY1 N T M AH N T",
+medicine:"M EH1 D AH S AH N",vegetable:"V EH1 JH T AH B AH L",chocolate:"CH AO1 K L AH T",
+beautiful:"B Y UW1 T AH F AH L",tomorrow:"T AH M AA1 R OW",today:"T AH D EY1",tonight:"T AH N AY1 T",yesterday:"Y EH1 S T ER D EY",
+restaurant:"R EH1 S T ER AA N T",comfortable:"K AH1 M F T ER B AH L",
+minute:"M IH1 N AH T",lettuce:"L EH1 T AH S",
+cash:"K AE1 SH",card:"K AA1 R D",car:"K AA1 R",
+hello:"HH EH L OW1",okay:"OW K EY1",ok:"OW K EY1",
+receipt:"R IH S IY1 T",
+prescription:"P R IH S K R IH1 P SH AH N",insurance:"IH N SH UH1 R AH N S",
+schedule:"S K EH1 JH UW L",
+teacher:"T IY1 CH ER",lived:"L IH1 V D",lives:"L IH1 V Z",given:"G IH1 V AH N",loved:"L AH1 V D",glove:"G L AH1 V",gloves:"G L AH1 V Z",cover:"K AH1 V ER",buses:"B AH1 S IH Z",
+headache:"HH EH1 D EY K",hotel:"HH OW T EH1 L",vacuum:"V AE1 K Y UW M",aisle:"AY1 L",orange:"AO1 R IH N JH",climb:"K L AY1 M",general:"JH EH1 N ER AH L",gentle:"JH EH1 N T AH L",giant:"JH AY1 AH N T",
+interest:"IH1 N T R AH S T",energy:"EH1 N ER JH IY",enter:"EH1 N T ER",empty:"EH1 M P T IY",company:"K AH1 M P AH N IY",common:"K AA1 M AH N",comfort:"K AH1 M F ER T",
+excellent:"EH1 K S AH L AH N T",exercise:"EH1 K S ER S AY Z",contact:"K AA1 N T AE K T",income:"IH1 N K AH M",instant:"IH1 N S T AH N T",industry:"IH1 N D AH S T R IY",
+study:"S T AH1 D IY",fashion:"F AE1 SH AH N",television:"T EH1 L AH V IH ZH AH N",question:"K W EH1 S CH AH N",really:"R IY1 L IY",
+};
+
+// "th" voiced in these stems
+const DH_WORDS = /^(the|this|that|these|those|they|them|their|theirs|there|then|than|though|thus|themselves)$|(other|mother|father|brother|weather|gether|either|neither|rather|bother|further|whether|clothe|breathe|smooth|^with)/;
+
+function rules(w) {
+  const out = []; // {g, ph:[...], tag}
+  const n = w.length;
+  let i = 0;
+  const vowelCount = (w.match(/[aeiouy]+/g) || []).length;
+  const add = (g, ph, tag) => { out.push({ g, ph: ph ? ph.split(" ").filter(Boolean) : [], tag: tag || "" }); i += g.length; };
+  const rest = () => w.slice(i);
+  const at = k => w[i + k];
+  while (i < n) {
+    const r = rest(), c = w[i], prev = w[i - 1], end = n - i;
+    // --- endings ---
+    if (/^tion/.test(r) && prev === "s") { add("tion", "CH AH N", "end-tion"); continue; }
+    if (/^tion/.test(r)) { add("tion", "SH AH N", "end-tion"); continue; }
+    if (/^sion/.test(r)) { add("sion", isV(prev) ? "ZH AH N" : "SH AH N", "end-tion"); continue; }
+    if (/^cian/.test(r)) { add("cian", "SH AH N", "end-tion"); continue; }
+    if (/^cial|^tial/.test(r)) { add(r.slice(0, 4), "SH AH L", "end-tion"); continue; }
+    if (/^cious|^tious/.test(r)) { add(r.slice(0, 5), "SH AH S", "end-ous"); continue; }
+    if (/^ture/.test(r)) { add("ture", "CH ER", "end-ture"); continue; }
+    if (/^ous$/.test(r)) { add("ous", "AH S", "end-ous"); continue; }
+    if (/^ing$/.test(r)) { add("ing", "IH NGx", "end-ing"); continue; }
+    if (/^ly$/.test(r) && i > 0) { add("ly", "L IY", "end-ly"); continue; }
+    if (/^le$|^les$/.test(r) && isC(prev) && i > 1) { add(r, r === "les" ? "AH L Z" : "AH L", "end-le"); continue; }
+    if (/^ed$/.test(r) && i >= 2 && !isV(prev)) {
+      if (/[td]/.test(prev)) add("ed", "IH D", "end-ed");
+      else if (/[pkfxsc]|sh$|ch$/.test(prev) || /(sh|ch|ss)$/.test(w.slice(0, i))) add("ed", "T", "end-ed");
+      else add("ed", "D", "end-ed");
+      continue;
+    }
+    if (/^es$/.test(r) && i >= 2 && (/(s|x|z|sh|ch|ss)$/.test(w.slice(0, i)))) { add("es", "IH Z", "end-s"); continue; }
+    if (/^es$/.test(r) && i >= 2 && /[cg]/.test(prev)) { add("es", "IH Z", "end-s"); continue; }
+    if (c === "s" && end === 1 && i > 1) {
+      const p = out[out.length - 1]; const last = p && p.ph[p.ph.length - 1];
+      const sv = isV(prev) && !isV(w[i - 2]) && prev !== "e";
+      add("s", (sv || /^(P|T|K|F|TH)$/.test(last || "")) ? "S" : "Z", sv ? "" : "end-s"); continue;
+    }
+    if (/^sch/.test(r)) { add("sch", "S K", "digraph"); continue; }
+    // --- silent letters ---
+    if (i === 0 && /^kn/.test(r)) { add("kn", "N", "silent"); continue; }
+    if (i === 0 && /^wr/.test(r)) { add("wr", "R", "silent"); continue; }
+    if (i === 0 && /^ps/.test(r)) { add("ps", "S", "silent"); continue; }
+    if (/^mb$/.test(r)) { add("mb", "M", "silent"); continue; }
+    if (/^gn$/.test(r)) { add("gn", "N", "silent"); continue; }
+    // --- vowel teams & r-controlled ---
+    if (/^eigh/.test(r)) { add("eigh", "EY", "team"); continue; }
+    if (/^igh/.test(r)) { add("igh", "AY", "team"); continue; }
+    if (/^augh/.test(r)) { add("augh", "AO", "team"); continue; }
+    if (/^ough/.test(r)) { add("ough", "AO", "team"); continue; }
+    if (c === "w" && /^wor/.test(r) && !/^wore?$/.test(r)) { add("wor", "W ER", "rctrl"); continue; }
+    if (c === "w" && /^war/.test(r)) { add("war", "W AO R", "rctrl"); continue; }
+    if (c === "w" && /^wa[^iyr]/.test(r) && !/^wa(lk|ll|lt|ld)/.test(r)) { add("wa", "W AA", "wa"); continue; }
+    if (/^are[^aeiouy]/.test(r) && i > 0) { out.push({ g: "ar", ph: ["EH", "R"], tag: "rctrl" }); out.push({ g: "e", ph: [], tag: "silent-e" }); i += 3; continue; }
+    if (/^air|^are$|^ares$/.test(r)) { add(r.startsWith("air") ? "air" : r.slice(0, 3), "EH R", "rctrl"); continue; }
+    if (/^ear/.test(r)) { add("ear", "IY R", "rctrl"); continue; }
+    if (/^eer/.test(r)) { add("eer", "IY R", "rctrl"); continue; }
+    if (/^ere$/.test(r)) { add("ere", "IY R", "rctrl"); continue; }
+    if (/^ore$|^ores$/.test(r)) { add("ore", "AO R", "rctrl"); continue; }
+    if (/^oor/.test(r)) { add("oor", "AO R", "rctrl"); continue; }
+    if (/^our/.test(r)) { add("our", "AW ER", "rctrl"); continue; }
+    if (/^ire$/.test(r)) { add("ire", "AY ER", "rctrl"); continue; }
+    if (/^ure$/.test(r)) { add("ure", "Y UH R", "rctrl"); continue; }
+    if (/^ar/.test(r) && !/^arr|^ar[aeiouy]/.test(r)) { add("ar", "AA R", "rctrl"); continue; }
+    if (/^(er|ir|ur)/.test(r) && !/^(err|irr|urr)|^(er|ir|ur)[aeiouy]/.test(r)) { add(r.slice(0, 2), "ER", "rctrl"); continue; }
+    if (/^or/.test(r) && !/^orr|^or[aeiouy]/.test(r)) { add("or", "AO R", "rctrl"); continue; }
+    if (/^ee/.test(r)) { add("ee", "IY", "team"); continue; }
+    if (/^ea/.test(r)) { add("ea", "IY", "team"); continue; }
+    if (/^ai|^ay/.test(r)) { add(r.slice(0, 2), "EY", "team"); continue; }
+    if (/^ey$/.test(r)) { add("ey", vowelCount > 1 ? "IY" : "EY", "team"); continue; }
+    if (/^ei|^ey/.test(r)) { add(r.slice(0, 2), prev === "c" ? "IY" : "EY", "team"); continue; }
+    if (/^oa/.test(r)) { add("oa", "OW", "team"); continue; }
+    if (/^oe$/.test(r)) { add("oe", "OW", "team"); continue; }
+    if (/^oo/.test(r)) { add("oo", at(2) === "k" ? "UH" : "UW", "team"); continue; }
+    if (/^ou/.test(r)) { add("ou", "AW", "team"); continue; }
+    if (/^ow/.test(r)) {
+      let ph = "AW";
+      const after = w.slice(i + 2), before = w.slice(0, i);
+      if (/^n/.test(after)) ph = /(^|kn|sh|gr|bl|thr|fl|s)$/.test(before) ? "OW" : "AW";
+      else if (after === "" || /^(s|ed|ing|ly)$/.test(after)) ph = (/^(h|n|c|w|v|br|pl|all)$/.test(before)) ? "AW" : "OW";
+      else if (/^er/.test(after)) ph = /(sl|^l|gr|bl|kn)$/.test(before) ? "OW" : "AW";
+      add("ow", ph, "team"); continue; }
+    if (/^oi|^oy/.test(r)) { add(r.slice(0, 2), "OY", "team"); continue; }
+    if (/^au|^aw/.test(r)) { add(r.slice(0, 2), "AO", "team"); continue; }
+    if (/^ew/.test(r)) { add("ew", /[jlr]|ch/.test(prev || "") ? "UW" : "Y UW", "team"); continue; }
+    if (/^ue/.test(r) && i > 0) { add("ue", /[jlr]/.test(prev) ? "UW" : "Y UW", "team"); continue; }
+    if (/^ui/.test(r) && i > 0) { add("ui", "UW", "team"); continue; }
+    if (/^ie$|^ies$/.test(r)) { add(r.slice(0, 2), vowelCount > 1 ? "IY" : "AY", "team"); continue; }
+    if (/^ie/.test(r)) { add("ie", "IY", "team"); continue; }
+    if (/^all/.test(r)) { add("all", "AO L", "al"); continue; }
+    if (/^al[kt]|^ald/.test(r)) { add(r[2] === "k" ? "al" : "al", r[2] === "k" ? "AO" : "AO L", "al"); continue; }
+    // --- consonant digraphs ---
+    if (i === 0 && /^ex[aeiou]/.test(r)) { add("ex", "IH G Z", "x"); continue; }
+    if (/^tch/.test(r)) { add("tch", "CH", "digraph"); continue; }
+    if (/^dge/.test(r)) { add("dge", "JH", "digraph"); continue; }
+    if (/^ch/.test(r)) { add("ch", "CH", "digraph"); continue; }
+    if (/^sh/.test(r)) { add("sh", "SH", "digraph"); continue; }
+    if (/^ph/.test(r)) { add("ph", "F", "digraph"); continue; }
+    if (/^th/.test(r)) { add("th", DH_WORDS.test(w) || (i > 0 && /^ther/.test(r)) ? "DH" : "TH", "th"); continue; }
+    if (/^wh/.test(r)) { add("wh", "W", "digraph"); continue; }
+    if (/^ck/.test(r)) { add("ck", "K", "digraph"); continue; }
+    if (/^ng/.test(r)) { add("ng", "NG", "digraph"); continue; }
+    if (/^qu/.test(r)) { add("qu", "K W", "digraph"); continue; }
+    if (/^gh/.test(r)) { add("gh", i === 0 ? "G" : "", "silent"); continue; }
+    if (/^ge$|^ges$/.test(r) && i > 0) { add("ge", "JH", "softg"); continue; }
+    if (/^ce$|^ces$/.test(r) && i > 0) { add("ce", "S", "softc"); continue; }
+    // --- magic e: V C e(end|s|d) ---
+    if (isV(c) && isC(at(1)) && !/[rwxy]/.test(at(1)) && at(2) === "e" && (end === 3 || (end === 4 && /[sd]/.test(at(3))))) {
+      const L = { a: "EY", e: "IY", i: "AY", o: "OW", u: /[jlr]|ch/.test(prev || "") ? "UW" : "Y UW" }[c];
+      const cons = { c: "S", g: "JH", s: "Z", th: "TH" }[at(1)] || at(1).toUpperCase().replace("J", "JH").replace("Y", "Y");
+      out.push({ g: c, ph: L.split(" "), tag: "magic" }); i++;
+      out.push({ g: at(0), ph: [conMap(at(0), w, i)], tag: "" }); i++;
+      out.push({ g: "e", ph: [], tag: "silent-e" }); i++;
+      continue;
+    }
+    // --- V + C + le (table) ---
+    if (isV(c) && isC(at(1)) && at(2) === "l" && at(3) === "e" && end === 4 && i > 0 && !/[aeiouy]/.test(w.slice(0, i))) {
+      const L = { a: "EY", i: "AY", o: "OW", u: "UW", e: "IY" }[c];
+      out.push({ g: c, ph: [L], tag: "open" }); i++; continue;
+    }
+    // --- single vowels ---
+    if (c === "a") {
+      const first = !/[aeiouy]/.test(w.slice(0, i));
+      if (end === 1 && vowelCount > 1) { add("a", "AH", ""); continue; }
+      if (first && /^ange/.test(r)) { add("a", "EY", "open"); continue; }
+      if (/^a(tion|sion)/.test(r)) { add("a", "EY", "open"); continue; }
+      if (first && /^a(ph|th|[bcdfgklmnpstvz])(tion|sion|cian|y$|er$|ous|io|ia|ble)/.test(r)) { add("a", "EY", "open"); continue; }
+      add("a", "AE", ""); continue; }
+    if (c === "e") {
+      if (end === 1) { add("e", vowelCount > 1 ? "" : "IY", vowelCount > 1 ? "silent-e" : ""); continue; }
+      add("e", "EH", ""); continue;
+    }
+    if (c === "i") {
+      if (end === 1) { add("i", "IY", ""); continue; }
+      if (/^i(nd|ld)/.test(r)) { add("i", "AY", "open"); continue; }
+      add("i", "IH", ""); continue;
+    }
+    if (c === "o") {
+      if (end === 1) { add("o", "OW", ""); continue; }
+      if (/^o(ld|lt|ll$)/.test(r)) { add("o", "OW", "open"); continue; }
+      if (/^ong/.test(r)) { add("o", "AO", ""); continue; }
+      if (!/[aeiouy]/.test(w.slice(0, i)) && (/^o(ph|th|[bcdfgklmnpstvz])(tion|er$|o$|ent|en$|al$|ice|us$)/.test(r) || /^over/.test(r))) { add("o", "OW", "open"); continue; }
+      add("o", "AA", ""); continue;
+    }
+    if (c === "u") {
+      if (isC(at(1)) && isV(at(2)) && at(1) !== "r" && !/^u.y$/.test(r)) { add("u", /[jlrtd]|ch/.test(prev || "") ? "UW" : "Y UW", "open"); continue; }
+      add("u", i === 0 && /^u[ns]/.test(r) ? "AH" : "AH", ""); continue;
+    }
+    if (c === "y") {
+      if (i === 0 || isV(at(1))) { add("y", "Y", ""); continue; }
+      if (end === 1) { add("y", vowelCount > 1 ? "IY" : "AY", "y-end"); continue; }
+      add("y", "IH", ""); continue;
+    }
+    // --- single consonants ---
+    if (c === at(1) && c !== "c") { add(c + c, conMap(c, w, i + 1), "double"); continue; }
+    add(c, conMap(c, w, i), c === "c" || c === "g" ? (/[eiy]/.test(at(1) || "") ? "soft" + c : "") : (c === "h" ? "h" : (c === "x" ? "x" : "")));
+  }
+  return out;
+}
+function conMap(c, w, i) {
+  const nx = w[i + 1], pv = w[i - 1];
+  switch (c) {
+    case "b": return "B"; case "d": return "D"; case "f": return "F"; case "k": return "K"; case "l": return "L";
+    case "m": return "M"; case "n": return (nx === "k" || nx === "g") ? "NG" : "N"; case "p": return "P"; case "r": return "R"; case "t": return "T"; case "v": return "V";
+    case "w": return "W"; case "z": return "Z"; case "j": return "JH";
+    case "c": return /[eiy]/.test(nx || "") ? "S" : "K";
+    case "g": return (/[eiy]/.test(nx || "") && i > 0) || (i === 0 && nx === "y") ? "JH" : "G";
+    case "h": return (i === w.length - 1 || (pv && isV(pv) && !isV(nx))) ? "" : "HH";
+    case "x": return i === 0 ? "Z" : "K S";
+    case "s": return (isV(pv) && isV(nx)) ? "Z" : "S";
+    case "q": return "K";
+    case "y": return "Y";
+    default: return "";
+  }
+}
+function flat(ch) { return ch.flatMap(x => x.ph).join(" ").split(" ").filter(Boolean); }
+
+function stressAndReduce(chunks, w) {
+  // syllables = vowel phonemes
+  const idx = []; chunks.forEach((ch, ci) => ch.ph.forEach((p, pi) => { if (V.has(p)) idx.push([ci, pi]); }));
+  if (!idx.length) return chunks;
+  const suffixTags = new Set(["end-ing", "end-ed", "end-s", "end-ly", "end-le", "end-ous", "end-ture"]);
+  let stemCount = idx.filter(([ci]) => !suffixTags.has(chunks[ci].tag)).length || idx.length;
+  let s = 0;
+  const PREFIX = /^((be|de|re|pre)[^aeiouy][aeiouy]|(im|in|ex|con|com|em|en)[a-z]|a([bcdgjklmnprstvwz]|ss|cc|pp|tt|ll|rr)[aeiou]|un[lt]i)/;
+  const tionAt = idx.findIndex(([ci]) => /^(end-tion)$/.test(chunks[ci].tag) || (chunks[ci].tag === "end-ous" && /^(ci|ti)/.test(chunks[ci].g)));
+  if (tionAt > 0) s = tionAt - 1;
+  else if (/(ity|ical)s?$/.test(w)) s = Math.max(0, idx.length - 3);
+  else if (/(ic|ian|ial|ion|ious)s?$/.test(w)) s = Math.max(0, idx.length - 2);
+  else if (/(ee|oo|eer|ique|ese|oon)s?$/.test(w) && idx.length > 1) s = idx.length - 1;
+  else if (stemCount >= 2 && PREFIX.test(w) && !/^(ever|even|after|under|army|apple|able|every|adult|animal|accident|average|agent)/.test(w)) s = 1;
+  const doubleBe = /^(be|de|re|pre)(.)\2/.test(w);
+  if (doubleBe) s = 0;
+  if (s >= idx.length) s = idx.length - 1;
+  idx.forEach(([ci, pi], k) => {
+    const p = chunks[ci].ph[pi];
+    if (k === s) { chunks[ci].ph[pi] = p + "1"; return; }
+    if (idx.length > 1 && ["AE", "AA", "AH", "EH"].includes(p) && !/^end-(ing)/.test(chunks[ci].tag)) {
+      if (p === "EH" && k === 0 && /^(be|de|re|pre|e)/.test(w)) chunks[ci].ph[pi] = "IH";
+      else if (p === "EH" && /^(ed|es)$/.test(chunks[ci].g)) chunks[ci].ph[pi] = "IH";
+      else chunks[ci].ph[pi] = "AH";
+    }
+    if (idx.length > 1 && p === "AO" && chunks[ci].g === "or" && k !== s) { chunks[ci].ph[pi] = "ER"; if (chunks[ci].ph[pi + 1] === "R") chunks[ci].ph.splice(pi + 1, 1); }
+  });
+  return chunks;
+}
+
+function analyze(word) {
+  const w = word.toLowerCase().replace(/[^a-z']/g, "");
+  if (!w) return null;
+  if (EXC[w]) return { word: w, irregular: true, chunks: [{ g: w, ph: EXC[w].split(" "), tag: "irregular" }] };
+  const ch = rules(w.replace(/'/g, ""));
+  return { word: w, irregular: false, chunks: stressAndReduce(ch, w) };
+}
+
+// ---------- rendering ----------
+const ES_V = { AA: "a", AE: "a", AH: "a", AO: "o", AW: "au", AY: "ai", EH: "e", ER: "er", EY: "ei", IH: "i", IY: "i", OW: "ou", OY: "oi", UH: "u", UW: "u" };
+const ES_C = { B: "b", CH: "ch", D: "d", DH: "d", F: "f", G: "g", HH: "j", JH: "y", K: "k", L: "l", M: "m", N: "n", NG: "ng", P: "p", R: "r", S: "s", SH: "sh", T: "t", TH: "z", V: "v", W: "u", Y: "i", Z: "s", ZH: "sh" };
+const PT_V = { AA: ["á", "a"], AE: ["é", "é"], AH: ["â", "â"], AO: ["ó", "ó"], AW: ["áu", "au"], AY: ["ái", "ai"], EH: ["é", "e"], ER: ["âr", "âr"], EY: ["êi", "ei"], IH: ["i", "i"], IY: ["í", "i"], OW: ["ôu", "ou"], OY: ["ói", "oi"], UH: ["ú", "u"], UW: ["ú", "u"] };
+const PT_C = { B: "b", CH: "tch", D: "d", DH: "dh", F: "f", G: "g", HH: "rr", JH: "dj", K: "k", L: "l", M: "m", N: "n", NG: "ng", P: "p", R: "r", S: "s", SH: "ch", T: "t", TH: "th", V: "v", W: "u", Y: "i", Z: "z", ZH: "j" };
+const ACC = { a: "á", e: "é", i: "í", o: "ó", u: "ú" };
+function render(phs, lang) {
+  const nV = phs.filter(p => V.has(p.replace("1", ""))).length;
+  let s = "";
+  phs.forEach((p, k) => {
+    const st = p.endsWith("1"); const b = p.replace("1", "");
+    const nxt = (phs[k + 1] || "").replace("1", "");
+    if (V.has(b)) {
+      if (lang === "es") {
+        let v = ES_V[b];
+        const accent = st && (nV > 1 || v.length > 1 || b === "IY" || (b === "UW" && /i$/.test(s)));
+        if (accent) v = ACC[v[0]] + v.slice(1);
+        s += v;
+      } else {
+        s += st ? PT_V[b][0] : PT_V[b][1];
+      }
+    } else {
+      let c = (lang === "es" ? ES_C : PT_C)[b] || "";
+      if (b === "G" && /^(IH|IY|EH|EY)/.test(nxt)) c = "gu";
+      if (b === "NGx" || (b === "NG" && /^(K|G)$/.test(nxt))) c = "n";
+      if (lang === "pt" && b === "S" && k > 0 && V.has((phs[k - 1] || "").replace("1", "")) && V.has(nxt)) c = "ss";
+      if (b === "Y" && nxt === "UW" && lang === "es" && !s.endsWith("i")) c = "i";
+      s += c;
+    }
+  });
+  return s;
+}
+function pronounce(word, lang) { const a = analyze(word); return a ? render(flat(a.chunks), lang) : ""; }
+function pronounceText(text, lang) { return text.split(/\s+/).filter(Boolean).map(t => pronounce(t, lang)).filter(Boolean).join(" "); }
+return { analyze, render, flat, pronounce, pronounceText, V };
+})();
+
+
+const SOUNDS = {
+es: [
+ {id:"easy", easy:true, name:"Sonidos que ya tienes", how:"Estos sonidos son casi iguales en español: p, b, t, d, k, g, f, m, n, l, ch, s, y las vocales largas i (see), e (bed), u (food). También los diptongos ai (my), au (now), ei (day), oi (boy), ou (go).", ex:["see","bed","food","my","now","day","boy","go"]},
+ {id:"TH", ph:["TH"], name:"th suave (sin voz) → z", how:"Pon la punta de la lengua entre los dientes y sopla, como la z de España. No digas t ni s.", ex:["think","three","bath","thank you"]},
+ {id:"DH", ph:["DH"], name:"th con voz → d", how:"La misma posición (lengua entre los dientes), pero con voz, como una d muy suave. Está en palabras muy comunes.", ex:["the","this","mother","they"]},
+ {id:"V", ph:["V"], name:"v → muerde el labio", how:"Los dientes de arriba tocan el labio de abajo y sale el aire con voz. En inglés v y b son sonidos distintos.", ex:["very","love","five","van"]},
+ {id:"Z", ph:["Z"], name:"z → s que zumba", how:"Es una s con vibración, como el zumbido de una abeja: zzz. Pon la mano en la garganta y siente la vibración.", ex:["zoo","is","music","busy"]},
+ {id:"SH", ph:["SH","ZH"], name:"sh → shhh", how:"El sonido de pedir silencio: shhh. Labios un poco hacia afuera.", ex:["she","fish","shop","nation"]},
+ {id:"JH", ph:["JH"], name:"j / g inglesa → y fuerte", how:"Como la 'y' de 'yo' dicha con fuerza, casi 'dy'. Nunca como la j española.", ex:["job","juice","gym","orange"]},
+ {id:"HH", ph:["HH"], name:"h → un soplo", how:"Un soplo suave, como cuando empañas un vidrio. Más suave que la j española, pero nunca muda.", ex:["hello","house","help","hat"]},
+ {id:"R", ph:["R"], name:"r inglesa → lengua hacia atrás", how:"Enrolla la punta de la lengua hacia atrás sin tocar el paladar. Nunca vibra, ni al principio ni al final.", ex:["red","right","car","sorry"]},
+ {id:"AE", ph:["AE"], name:"a de cat → boca muy abierta", how:"Abre mucho la boca y di algo entre 'a' y 'e'. Sonríe un poco.", ex:["cat","bad","hand","black"]},
+ {id:"IH", ph:["IH"], name:"i corta → relajada", how:"Una i corta y floja, casi una e. Compárala con la i larga: ship / sheep.", ex:["sit","big","fish","ship"]},
+ {id:"UH", ph:["UH"], name:"u corta → relajada", how:"Una u corta con los labios flojos. Compárala con la u larga: full / fool.", ex:["book","good","look","put"]},
+ {id:"AH", ph:["AH"], name:"sonido débil 'uh'", how:"Una vocal muy corta y floja, con la boca relajada. Es el sonido más común del inglés: aparece en las sílabas débiles y en palabras como cup.", ex:["about","banana","cup","problem"]},
+ {id:"ER", ph:["ER"], name:"er → r con vocal escondida", how:"La lengua ya está en posición de r inglesa y la vocal casi no se oye.", ex:["her","bird","work","turn"]},
+ {id:"SC", name:"s + consonante al inicio", how:"No digas 'e' antes: school, no 'eschool'. Empieza directo con la s.", ex:["school","stop","speak","Spanish"]},
+ {id:"FIN", name:"Consonantes al final", how:"Pronuncia la última consonante, sobre todo -t, -d, -s y -ed: cats, walked, hand.", ex:["cats","walked","hand","months"]},
+ {id:"NG", ph:["NG"], name:"ng → sonido nasal", how:"La parte de atrás de la lengua toca el paladar, como la n de 'tengo'. No pronuncies la g al final.", ex:["sing","long","thing","young"]}
+],
+pt: [
+ {id:"easy", easy:true, name:"Sons que você já tem", how:"Estes sons são quase iguais em português: p, b, f, v, m, n, k, g, s, z, ch (sh), tch, dj, e as vogais longas i (see), é (bed), u (food). Também os ditongos ai (my), au (now), ei (day), ói (boy), ou (go).", ex:["see","bed","food","very","zoo","she","my","boy"]},
+ {id:"TH", ph:["TH"], name:"th sem voz", how:"Ponha a ponta da língua entre os dentes e sopre. Não troque por 't' nem por 'f'.", ex:["think","three","bath","thank you"]},
+ {id:"DH", ph:["DH"], name:"th com voz (dh)", how:"A mesma posição (língua entre os dentes), mas com voz. Não troque por 'd'. Está em palavras muito comuns.", ex:["the","this","mother","they"]},
+ {id:"HH", ph:["HH"], name:"h → um sopro (rr leve)", how:"Um sopro suave, como o 'rr' carioca bem leve. Nunca fica mudo: hat é diferente de at.", ex:["hello","house","help","hat"]},
+ {id:"R", ph:["R"], name:"r inglês → língua enrolada", how:"Enrole a ponta da língua para trás, como o r caipira, sem tocar o céu da boca. Nunca use o 'rr' de garganta: red ≠ head.", ex:["red","right","car","sorry"]},
+ {id:"AE", ph:["AE"], name:"a de cat → boca bem aberta", how:"Abra bem a boca, ainda mais que no 'é'. Sorria um pouco.", ex:["cat","bad","hand","black"]},
+ {id:"IH", ph:["IH"], name:"i curto → relaxado", how:"Um i curto e frouxo, quase um 'ê'. Compare com o i longo: ship / sheep.", ex:["sit","big","fish","ship"]},
+ {id:"UH", ph:["UH"], name:"u curto → relaxado", how:"Um u curto com os lábios frouxos. Compare com o u longo: full / fool.", ex:["book","good","look","put"]},
+ {id:"AH", ph:["AH"], name:"som fraco â", how:"Uma vogal curta e fraca, com a boca relaxada, como o 'a' de 'cama'. É o som mais comum do inglês.", ex:["about","banana","cup","problem"]},
+ {id:"ER", ph:["ER"], name:"er → r com vogal escondida", how:"A língua já está enrolada como no r inglês e a vogal quase não se ouve.", ex:["her","bird","work","turn"]},
+ {id:"TD", ph:["T","D"], name:"T e D sempre duros", how:"Antes de i, o t e o d continuam duros: tip (não 'tchip'), did (não 'djid'), city.", ex:["tip","did","city","deep"]},
+ {id:"FIN", name:"Sem vogal no final", how:"Não acrescente 'i' depois da última consoante: book (não 'búqui'), big (não 'bígui').", ex:["book","big","stop","good"]},
+ {id:"SC", name:"s + consoante no início", how:"Não diga 'i' antes: school, não 'iskul'. Comece direto com o s.", ex:["school","stop","speak","Spanish"]},
+ {id:"MN", name:"M e N no final", how:"Feche os lábios no m e toque a língua no n. Não deixe a vogal nasal: time, sun.", ex:["time","sun","them","clean"]},
+ {id:"NG", ph:["NG"], name:"ng → som nasal", how:"A parte de trás da língua toca o céu da boca. Não pronuncie o g no final.", ex:["sing","long","thing","young"]}
+]};
+const TIPS = {
+ es:{magic:"E mágica: la e del final no suena y esta vocal 'dice su nombre'.", "silent-e":"Esta e no suena.", silent:"Letra muda: una de estas letras no suena.", team:"Equipo de vocales: estas letras juntas hacen un solo sonido.", rctrl:"Vocal con R: la r cambia el sonido de la vocal.", digraph:"Dos letras, un solo sonido.", th:"th: la lengua va entre los dientes.", double:"Letra doble: suena como una sola.", softc:"c antes de e, i, y suena como s.", softg:"g antes de e, i, y suele sonar como y fuerte.", open:"Vocal larga: aquí la vocal 'dice su nombre'.", wa:"Después de w, la a suena como una a abierta.", al:"al antes de k o l: suena como 'o' abierta.", "y-end":"y al final: 'ai' en palabras cortas, 'i' en las largas.", x:"x suena 'ks' (o 'gz' en ex- + vocal).", h:"h: un soplo suave.", "end-tion":"Terminación -tion / -sion: suena 'shon'.", "end-ture":"Terminación -ture: suena 'cher'.", "end-ous":"Terminación -ous: suena 'os'.", "end-ing":"Terminación -ing: suena 'in'.", "end-ly":"Terminación -ly: suena 'li'.", "end-le":"Terminación -le: suena 'ol'.", "end-ed":"Terminación -ed: suena t, d o id según la letra anterior.", "end-s":"Terminación -s: suena s, z o iz.", irregular:"Palabra irregular: no sigue las reglas. Escúchala y apréndela de memoria.", "new":"Sonido nuevo"},
+ pt:{magic:"E mágico: o e final não soa e esta vogal 'diz o seu nome'.", "silent-e":"Este e não soa.", silent:"Letra muda: uma destas letras não soa.", team:"Par de vogais: estas letras juntas fazem um só som.", rctrl:"Vogal com R: o r muda o som da vogal.", digraph:"Duas letras, um só som.", th:"th: a língua vai entre os dentes.", double:"Letra dobrada: soa como uma só.", softc:"c antes de e, i, y soa como s.", softg:"g antes de e, i, y costuma soar como dj.", open:"Vogal longa: aqui a vogal 'diz o seu nome'.", wa:"Depois de w, o a soa como um á aberto.", al:"al antes de k ou l: soa como 'ó' aberto.", "y-end":"y no final: 'ái' em palavras curtas, 'i' nas longas.", x:"x soa 'ks' (ou 'gz' em ex- + vogal).", h:"h: um sopro suave (rr leve).", "end-tion":"Terminação -tion / -sion: soa 'chân'.", "end-ture":"Terminação -ture: soa 'tchâr'.", "end-ous":"Terminação -ous: soa 'âs'.", "end-ing":"Terminação -ing: soa 'in'.", "end-ly":"Terminação -ly: soa 'li'.", "end-le":"Terminação -le: soa 'âl'.", "end-ed":"Terminação -ed: soa t, d ou id conforme a letra anterior.", "end-s":"Terminação -s: soa s, z ou iz.", irregular:"Palavra irregular: não segue as regras. Ouça e aprenda de memória.", "new":"Som novo"}
+};
+
+</script>
+<script>
+const DATA = {"es": {"phrases": [{"t": "Saludos y despedidas", "r": [{"en": "Hello / Hi", "tr": "Hola", "pr": "jeló / jái"}, {"en": "Good morning", "tr": "Buenos días", "pr": "gud mórnin"}, {"en": "Good afternoon", "tr": "Buenas tardes", "pr": "gud afternún"}, {"en": "Good evening", "tr": "Buenas noches (al llegar)", "pr": "gud ívnin"}, {"en": "Good night", "tr": "Buenas noches (al despedirse)", "pr": "gud náit"}, {"en": "How are you?", "tr": "¿Cómo estás?", "pr": "jáu ar iú?"}, {"en": "I'm fine, thank you.", "tr": "Estoy bien, gracias.", "pr": "áim fáin, zénk iú"}, {"en": "Nice to meet you.", "tr": "Mucho gusto.", "pr": "náis tu mít iú"}, {"en": "See you later.", "tr": "Nos vemos luego.", "pr": "sí iú léiter"}, {"en": "Have a nice day.", "tr": "Que tenga un buen día.", "pr": "jáv a náis déi"}]}, {"t": "Presentarse y entender", "r": [{"en": "What's your name?", "tr": "¿Cómo te llamas?", "pr": "uáts iór néim?"}, {"en": "My name is ...", "tr": "Me llamo ...", "pr": "mái néim is ..."}, {"en": "Where are you from?", "tr": "¿De dónde eres?", "pr": "uér ar iú from?"}, {"en": "I'm from Cuba.", "tr": "Soy de Cuba.", "pr": "áim from kiúba"}, {"en": "I don't speak English very well.", "tr": "No hablo inglés muy bien.", "pr": "ái dóunt spík ínglish véri uél"}, {"en": "Can you speak slowly, please?", "tr": "¿Puede hablar despacio, por favor?", "pr": "kan iú spík slóuli, plís?"}, {"en": "Can you repeat that?", "tr": "¿Puede repetir eso?", "pr": "kan iú ripít dat?"}, {"en": "I don't understand.", "tr": "No entiendo.", "pr": "ái dóunt anderstánd"}, {"en": "What does that mean?", "tr": "¿Qué significa eso?", "pr": "uát das dat mín?"}, {"en": "How do you say ... in English?", "tr": "¿Cómo se dice ... en inglés?", "pr": "jáu du iú séi ... in ínglish?"}]}, {"t": "En el restaurante", "r": [{"en": "Let's eat out tonight.", "tr": "Vamos a comer afuera esta noche.", "pr": "lets ít áut tunáit"}, {"en": "A table for two, please.", "tr": "Una mesa para dos, por favor.", "pr": "a téibol for tú, plís"}, {"en": "Can I see the menu?", "tr": "¿Puedo ver el menú?", "pr": "kan ái sí de méniu?"}, {"en": "I'd like ...", "tr": "Me gustaría ...", "pr": "áid láik ..."}, {"en": "Water, please.", "tr": "Agua, por favor.", "pr": "uórer, plís"}, {"en": "It's delicious.", "tr": "Está delicioso.", "pr": "its dilíshos"}, {"en": "To go, please.", "tr": "Para llevar, por favor.", "pr": "tu góu, plís"}, {"en": "The check, please.", "tr": "La cuenta, por favor.", "pr": "de chek, plís"}, {"en": "Is the tip included?", "tr": "¿Está incluida la propina?", "pr": "is de tip inklúded?"}]}, {"t": "De compras", "r": [{"en": "How much is this?", "tr": "¿Cuánto cuesta esto?", "pr": "jáu mach is dis?"}, {"en": "I'm just looking.", "tr": "Solo estoy mirando.", "pr": "áim yast lúkin"}, {"en": "Do you have this in another size?", "tr": "¿Lo tiene en otra talla?", "pr": "du iú jáv dis in anáder sáis?"}, {"en": "Can I pay with card?", "tr": "¿Puedo pagar con tarjeta?", "pr": "kan ái péi uíz kard?"}, {"en": "Cash", "tr": "Efectivo", "pr": "kash"}, {"en": "Can I have a receipt?", "tr": "¿Me da un recibo?", "pr": "kan ái jáv a risít?"}, {"en": "Where is the bathroom?", "tr": "¿Dónde está el baño?", "pr": "uér is de bázrum?"}]}, {"t": "Direcciones y transporte", "r": [{"en": "Excuse me.", "tr": "Disculpe.", "pr": "ekskiús mi"}, {"en": "How do I get to ...?", "tr": "¿Cómo llego a ...?", "pr": "jáu du ái guet tu ...?"}, {"en": "Turn left. / Turn right.", "tr": "Gire a la izquierda. / a la derecha.", "pr": "tern left / tern ráit"}, {"en": "Go straight.", "tr": "Siga derecho.", "pr": "góu stréit"}, {"en": "It's near. / It's far.", "tr": "Está cerca. / Está lejos.", "pr": "its nír / its far"}, {"en": "Where is the bus stop?", "tr": "¿Dónde está la parada del autobús?", "pr": "uér is de bas stop?"}, {"en": "I'm lost.", "tr": "Estoy perdido.", "pr": "áim lost"}]}, {"t": "En el trabajo", "r": [{"en": "I'm looking for a job.", "tr": "Estoy buscando trabajo.", "pr": "áim lúkin for a yob"}, {"en": "I have experience.", "tr": "Tengo experiencia.", "pr": "ái jáv ekspíriens"}, {"en": "What time do I start?", "tr": "¿A qué hora empiezo?", "pr": "uát táim du ái start?"}, {"en": "I can work weekends.", "tr": "Puedo trabajar los fines de semana.", "pr": "ái kan uérk uíkends"}, {"en": "When is payday?", "tr": "¿Cuándo es el día de pago?", "pr": "uén is péidei?"}, {"en": "I need a day off.", "tr": "Necesito un día libre.", "pr": "ái nid a déi of"}, {"en": "I'll be late.", "tr": "Voy a llegar tarde.", "pr": "áil bi léit"}]}, {"t": "Salud y emergencias", "r": [{"en": "I need help.", "tr": "Necesito ayuda.", "pr": "ái nid jelp"}, {"en": "Call 911!", "tr": "¡Llame al 911!", "pr": "kol náin uán uán!"}, {"en": "I need a doctor.", "tr": "Necesito un médico.", "pr": "ái nid a dóktor"}, {"en": "It hurts here.", "tr": "Me duele aquí.", "pr": "it jerts jír"}, {"en": "I'm allergic to ...", "tr": "Soy alérgico a ...", "pr": "áim alérdyik tu ..."}, {"en": "Where is the hospital?", "tr": "¿Dónde está el hospital?", "pr": "uér is de jóspital?"}, {"en": "Pharmacy", "tr": "Farmacia", "pr": "fármasi"}]}, {"t": "Por teléfono y citas", "r": [{"en": "Can I speak to ...?", "tr": "¿Puedo hablar con ...?", "pr": "kan ái spík tu ...?"}, {"en": "I'd like to make an appointment.", "tr": "Quisiera hacer una cita.", "pr": "áid láik tu méik an apóintment"}, {"en": "Can you call me back?", "tr": "¿Me puede devolver la llamada?", "pr": "kan iú kol mi bak?"}, {"en": "My phone number is ...", "tr": "Mi número de teléfono es ...", "pr": "mái fóun námber is ..."}]}, {"t": "Cortesía y frases del día a día", "r": [{"en": "Please", "tr": "Por favor", "pr": "plís"}, {"en": "Thank you very much.", "tr": "Muchas gracias.", "pr": "zénk iú véri mach"}, {"en": "You're welcome.", "tr": "De nada.", "pr": "iór uélkam"}, {"en": "I'm sorry.", "tr": "Lo siento.", "pr": "áim sóri"}, {"en": "No problem.", "tr": "No hay problema.", "pr": "nóu próblem"}, {"en": "Of course.", "tr": "Claro.", "pr": "ov kórs"}, {"en": "I'm hungry. / I'm tired.", "tr": "Tengo hambre. / Estoy cansado.", "pr": "áim jángri / áim táierd"}, {"en": "What time is it?", "tr": "¿Qué hora es?", "pr": "uát táim is it?"}, {"en": "Today / Tomorrow / Yesterday", "tr": "Hoy / Mañana / Ayer", "pr": "tudéi / tumárou / iésterdei"}]}, {"t": "Lo básico en cualquier trabajo", "r": [{"en": "What time is my shift?", "tr": "¿A qué hora es mi turno?", "pr": "uát táim is mái shift?"}, {"en": "Where do I clock in?", "tr": "¿Dónde marco la entrada?", "pr": "uér du ái klák in?"}, {"en": "I finished. What's next?", "tr": "Terminé. ¿Qué sigue?", "pr": "ái fínisht. uáts nekst?"}, {"en": "Can you show me how?", "tr": "¿Me puede enseñar cómo?", "pr": "kan iú shóu mi jáu?"}, {"en": "Can you say that again, slowly?", "tr": "¿Lo puede repetir, despacio?", "pr": "kan iú séi dat aguén, slóuli?"}, {"en": "I'm sick. I can't come today.", "tr": "Estoy enfermo. No puedo ir hoy.", "pr": "áim sik. ái kant kam tudéi"}, {"en": "When do we get paid?", "tr": "¿Cuándo nos pagan?", "pr": "uén du uí guet péid?"}, {"en": "Is this overtime?", "tr": "¿Esto cuenta como horas extra?", "pr": "is dis óuvertaim?"}]}, {"t": "Seguridad", "r": [{"en": "Be careful!", "tr": "¡Ten cuidado!", "pr": "bi kérful!"}, {"en": "Watch out!", "tr": "¡Cuidado!", "pr": "uách áut!"}, {"en": "Wear your gloves / helmet / safety glasses.", "tr": "Usa los guantes / el casco / los lentes de seguridad.", "pr": "uér iór glavs / jélmet / séifti glásis"}, {"en": "Someone is hurt. Call 911!", "tr": "Alguien está herido. ¡Llama al 911!", "pr": "sámuan is jert. kol náin uán uán!"}, {"en": "Where is the first aid kit?", "tr": "¿Dónde está el botiquín?", "pr": "uér is de ferst éid kit?"}, {"en": "The floor is wet.", "tr": "El piso está mojado.", "pr": "de flor is uet"}]}, {"t": "Construcción", "r": [{"en": "Hand me the hammer / drill / ladder.", "tr": "Pásame el martillo / taladro / la escalera.", "pr": "jand mi de jámer / dril / láder"}, {"en": "Where do you want this?", "tr": "¿Dónde quieres esto?", "pr": "uér du iú uánt dis?"}, {"en": "How many do you need?", "tr": "¿Cuántos necesitas?", "pr": "jáu méni du iú níd?"}, {"en": "We need more materials.", "tr": "Necesitamos más materiales.", "pr": "uí níd mor matírials"}, {"en": "It's ready. / It's finished.", "tr": "Está listo. / Está terminado.", "pr": "its rédi / its fínisht"}]}, {"t": "Limpieza y hoteles", "r": [{"en": "Housekeeping!", "tr": "¡Servicio de limpieza! (al tocar la puerta)", "pr": "jáuskípin!"}, {"en": "Can I clean the room now?", "tr": "¿Puedo limpiar la habitación ahora?", "pr": "kan ái klín de rum náu?"}, {"en": "We need more towels / sheets.", "tr": "Necesitamos más toallas / sábanas.", "pr": "uí níd mor táuels / shíts"}, {"en": "Which products do I use?", "tr": "¿Qué productos uso?", "pr": "uích prádakts du ái iús?"}, {"en": "The vacuum is broken.", "tr": "La aspiradora está rota.", "pr": "de vákium is bróuken"}]}, {"t": "Restaurante y cocina", "r": [{"en": "Order up!", "tr": "¡Orden lista!", "pr": "órder ap!"}, {"en": "Behind you!", "tr": "¡Detrás de ti!", "pr": "bijáind iú!"}, {"en": "Hot! / Sharp knife!", "tr": "¡Caliente! / ¡Cuchillo!", "pr": "jat! / sharp náif!"}, {"en": "We're out of ...", "tr": "Se nos acabó ...", "pr": "uír áut av ..."}, {"en": "How long for table five?", "tr": "¿Cuánto falta para la mesa cinco?", "pr": "jáu long for téibol fáiv?"}]}, {"t": "Tienda y atención al cliente", "r": [{"en": "Can I help you find something?", "tr": "¿Le ayudo a encontrar algo?", "pr": "kan ái jelp iú fáind sámzing?"}, {"en": "It's in aisle three.", "tr": "Está en el pasillo tres.", "pr": "its in áil zrí"}, {"en": "Let me check in the back.", "tr": "Déjeme revisar en el almacén.", "pr": "let mi chek in de bak"}, {"en": "Cash or card?", "tr": "¿Efectivo o tarjeta?", "pr": "kash or kard?"}, {"en": "Would you like a bag?", "tr": "¿Quiere una bolsa?", "pr": "uúd iú láik a bag?"}]}, {"t": "Cuidado de personas y niños", "r": [{"en": "Did you take your medicine?", "tr": "¿Tomó su medicina?", "pr": "did iú téik iór médisin?"}, {"en": "Are you hungry?", "tr": "¿Tiene hambre?", "pr": "ar iú jángri?"}, {"en": "Let me help you stand up.", "tr": "Déjeme ayudarle a levantarse.", "pr": "let mi jelp iú stand ap"}, {"en": "Time for a nap. / Time for a bath.", "tr": "Hora de la siesta. / Hora del baño.", "pr": "táim for a nap / táim for a baz"}, {"en": "Call me if you need anything.", "tr": "Llámeme si necesita algo.", "pr": "kol mi if iú níd énizing"}]}], "dialogs": [{"t": "En el médico", "r": [{"who": "A", "en": "Hi, do you have an appointment?", "tr": "Hola, ¿tiene una cita?", "pr": "jái, du iú jav an apóintment?"}, {"who": "B", "en": "Yes, at ten o'clock. My name is Ana López.", "tr": "Sí, a las diez. Me llamo Ana López.", "pr": "iés, at ten oklák. mái néim is Ana López"}, {"who": "A", "en": "What brings you in today?", "tr": "¿Qué lo trae hoy?", "pr": "uát brings iú in tudéi?"}, {"who": "B", "en": "I have a headache and a fever.", "tr": "Tengo dolor de cabeza y fiebre.", "pr": "ái jav a jédeik and a fíver"}, {"who": "A", "en": "How long have you felt sick?", "tr": "¿Desde cuándo se siente enfermo?", "pr": "jáu long jav iú felt sik?"}, {"who": "B", "en": "Since Monday.", "tr": "Desde el lunes.", "pr": "sins mándei"}, {"who": "A", "en": "Are you taking any medicine?", "tr": "¿Está tomando alguna medicina?", "pr": "ar iú téikin éni médisin?"}, {"who": "B", "en": "No. I'm allergic to penicillin.", "tr": "No. Soy alérgica a la penicilina.", "pr": "nóu. áim alérdyik tu penisílin"}]}, {"t": "Entrevista de trabajo", "r": [{"who": "A", "en": "Tell me about yourself.", "tr": "Hábleme de usted.", "pr": "tel mi abáut iorsélf"}, {"who": "B", "en": "I'm a hard worker. I have five years of experience.", "tr": "Soy muy trabajador. Tengo cinco años de experiencia.", "pr": "áim a jard uérker. ái jav fáiv iírs av ekspíriens"}, {"who": "A", "en": "When can you start?", "tr": "¿Cuándo puede empezar?", "pr": "uén kan iú start?"}, {"who": "B", "en": "I can start on Monday.", "tr": "Puedo empezar el lunes.", "pr": "ái kan start an mándei"}, {"who": "A", "en": "Can you work weekends?", "tr": "¿Puede trabajar los fines de semana?", "pr": "kan iú uérk uíkends?"}, {"who": "B", "en": "Yes, I can.", "tr": "Sí, puedo.", "pr": "iés, ái kan"}, {"who": "A", "en": "The pay is fifteen dollars an hour.", "tr": "El pago es de quince dólares la hora.", "pr": "de péi is fiftín dálers an áuer"}, {"who": "B", "en": "That's great. Thank you for the opportunity.", "tr": "Excelente. Gracias por la oportunidad.", "pr": "dats gréit. zénk iú for di aportúniti"}]}, {"t": "Llamar al dueño del apartamento", "r": [{"who": "A", "en": "Hi, this is Carlos from apartment 4B.", "tr": "Hola, habla Carlos, del apartamento 4B.", "pr": "jái, dis is Carlos fram apártment for bí"}, {"who": "B", "en": "Hi Carlos. What's the problem?", "tr": "Hola, Carlos. ¿Cuál es el problema?", "pr": "jái Carlos. uáts de práblem?"}, {"who": "A", "en": "The heater is not working.", "tr": "La calefacción no funciona.", "pr": "de jíter is nat uérkin"}, {"who": "B", "en": "Since when?", "tr": "¿Desde cuándo?", "pr": "sins uén?"}, {"who": "A", "en": "Since yesterday. It's very cold.", "tr": "Desde ayer. Hace mucho frío.", "pr": "sins iésterdei. its véri kóuld"}, {"who": "B", "en": "I'll send someone tomorrow morning.", "tr": "Mandaré a alguien mañana por la mañana.", "pr": "áil send sámuan tumárou mórnin"}, {"who": "A", "en": "Thank you. What time?", "tr": "Gracias. ¿A qué hora?", "pr": "zénk iú. uát táim?"}, {"who": "B", "en": "Around nine.", "tr": "Como a las nueve.", "pr": "aráund náin"}]}, {"t": "En el restaurante", "r": [{"who": "A", "en": "Hi! Are you ready to order?", "tr": "¡Hola! ¿Están listos para ordenar?", "pr": "jái! ar iú rédi tu órder?"}, {"who": "B", "en": "Yes. I'd like the chicken, please.", "tr": "Sí. Quisiera el pollo, por favor.", "pr": "iés. áid láik de chíken, plís"}, {"who": "A", "en": "What would you like to drink?", "tr": "¿Qué le gustaría tomar?", "pr": "uát uúd iú láik tu drink?"}, {"who": "B", "en": "Just water, please.", "tr": "Solo agua, por favor.", "pr": "yast uórer, plís"}, {"who": "A", "en": "Anything else?", "tr": "¿Algo más?", "pr": "énizing els?"}, {"who": "B", "en": "No, thank you. Can we have the check?", "tr": "No, gracias. ¿Nos trae la cuenta?", "pr": "nóu, zénk iú. kan uí jav de chek?"}]}, {"t": "En la escuela de mis hijos", "r": [{"who": "A", "en": "Hello, I'm Ms. Smith, Sofia's teacher.", "tr": "Hola, soy la Sra. Smith, maestra de Sofía.", "pr": "jeló, áim mis smiz, sofías tícher"}, {"who": "B", "en": "Nice to meet you. How is Sofia doing?", "tr": "Mucho gusto. ¿Cómo le va a Sofía?", "pr": "náis tu mít iú. jáu is sofía dúin?"}, {"who": "A", "en": "She's doing very well in math.", "tr": "Le va muy bien en matemáticas.", "pr": "shis dúin véri uél in maz"}, {"who": "B", "en": "And in reading?", "tr": "¿Y en lectura?", "pr": "and in rídin?"}, {"who": "A", "en": "She needs more practice at home.", "tr": "Necesita más práctica en casa.", "pr": "shi níds mor práktis at jóum"}, {"who": "B", "en": "OK. How can I help her?", "tr": "Está bien. ¿Cómo la puedo ayudar?", "pr": "oukéi. jáu kan ái jelp jer?"}, {"who": "A", "en": "Read with her for twenty minutes every day.", "tr": "Lea con ella veinte minutos cada día.", "pr": "ríd uíz jer for tuénti mínits évri déi"}]}, {"t": "En la farmacia", "r": [{"who": "A", "en": "Hi, I need to pick up a prescription.", "tr": "Hola, necesito recoger una receta.", "pr": "jái, ái níd tu pik ap a priskrípshon"}, {"who": "B", "en": "What's your name and date of birth?", "tr": "¿Su nombre y fecha de nacimiento?", "pr": "uáts iór néim and déit av berz?"}, {"who": "A", "en": "Maria Silva. May third, 1985.", "tr": "María Silva. 3 de mayo de 1985.", "pr": "maría sílva. méi zerd, náintín éiti fáiv"}, {"who": "B", "en": "Do you have insurance?", "tr": "¿Tiene seguro médico?", "pr": "du iú jav inshúrans?"}, {"who": "A", "en": "Yes, here is my card.", "tr": "Sí, aquí está mi tarjeta.", "pr": "iés, jír is mái kard"}, {"who": "B", "en": "Take one pill twice a day with food.", "tr": "Tome una pastilla dos veces al día con comida.", "pr": "téik uán pil tuáis a déi uíz fud"}, {"who": "A", "en": "Thank you.", "tr": "Gracias.", "pr": "zénk iú"}]}]}, "pt": {"phrases": [{"t": "Cumprimentos e despedidas", "r": [{"en": "Hello / Hi", "tr": "Olá / Oi", "pr": "rrelôu / rrái"}, {"en": "Good morning", "tr": "Bom dia", "pr": "gud mórnin"}, {"en": "Good afternoon", "tr": "Boa tarde", "pr": "gud éftârnun"}, {"en": "Good evening", "tr": "Boa noite (ao chegar)", "pr": "gud ívnin"}, {"en": "Good night", "tr": "Boa noite (ao se despedir)", "pr": "gud náit"}, {"en": "How are you?", "tr": "Como vai?", "pr": "rráu ár iú?"}, {"en": "I'm fine, thank you.", "tr": "Estou bem, obrigado.", "pr": "áim fáin, thênk iú"}, {"en": "Nice to meet you.", "tr": "Prazer em conhecer você.", "pr": "náis tâ mít iú"}, {"en": "See you later.", "tr": "Até mais tarde.", "pr": "sí iú lêitâr"}, {"en": "Have a nice day.", "tr": "Tenha um bom dia.", "pr": "rrév â náis dêi"}]}, {"t": "Apresentar-se e entender", "r": [{"en": "What's your name?", "tr": "Qual é o seu nome?", "pr": "uáts iór nêim?"}, {"en": "My name is ...", "tr": "Meu nome é ...", "pr": "mái nêim iz ..."}, {"en": "Where are you from?", "tr": "De onde você é?", "pr": "uér ár iú frâm?"}, {"en": "I'm from Brazil.", "tr": "Sou do Brasil.", "pr": "áim frâm brâzíl"}, {"en": "I don't speak English very well.", "tr": "Não falo inglês muito bem.", "pr": "ái dôunt spík ínglich véri uél"}, {"en": "Can you speak slowly, please?", "tr": "Pode falar devagar, por favor?", "pr": "kén iú spík slôuli, plíz?"}, {"en": "Can you repeat that?", "tr": "Pode repetir?", "pr": "kén iú ripít dhét?"}, {"en": "I don't understand.", "tr": "Não entendo.", "pr": "ái dôunt ândârsténd"}, {"en": "What does that mean?", "tr": "O que isso significa?", "pr": "uát dâz dhét mín?"}, {"en": "How do you say ... in English?", "tr": "Como se diz ... em inglês?", "pr": "rráu du iú sêi ... in ínglich?"}]}, {"t": "No restaurante", "r": [{"en": "Let's eat out tonight.", "tr": "Vamos comer fora hoje à noite.", "pr": "léts ít áut tânáit"}, {"en": "A table for two, please.", "tr": "Uma mesa para dois, por favor.", "pr": "â têibâl fór tu, plíz"}, {"en": "Can I see the menu?", "tr": "Posso ver o cardápio?", "pr": "kén ái sí dhâ méniu?"}, {"en": "I'd like ...", "tr": "Eu gostaria de ...", "pr": "áid láik ..."}, {"en": "Water, please.", "tr": "Água, por favor.", "pr": "uórâr, plíz"}, {"en": "It's delicious.", "tr": "Está delicioso.", "pr": "íts dilíchâs"}, {"en": "To go, please.", "tr": "Para viagem, por favor.", "pr": "tâ gôu, plíz"}, {"en": "The check, please.", "tr": "A conta, por favor.", "pr": "dhâ tchék, plíz"}, {"en": "Is the tip included?", "tr": "A gorjeta está incluída?", "pr": "iz dhâ tip inklúdid?"}]}, {"t": "Fazendo compras", "r": [{"en": "How much is this?", "tr": "Quanto custa isto?", "pr": "rráu mâtch iz dhis?"}, {"en": "I'm just looking.", "tr": "Só estou olhando.", "pr": "áim djâst lúkin"}, {"en": "Do you have this in another size?", "tr": "Tem este em outro tamanho?", "pr": "du iú rrév dhis in ânâdhâr sáiz?"}, {"en": "Can I pay with card?", "tr": "Posso pagar com cartão?", "pr": "kén ái pêi uíth kárd?"}, {"en": "Cash", "tr": "Dinheiro", "pr": "kéch"}, {"en": "Can I have a receipt?", "tr": "Pode me dar o recibo?", "pr": "kén ái rrév â rissít?"}, {"en": "Where is the bathroom?", "tr": "Onde fica o banheiro?", "pr": "uér iz dhâ béthrum?"}]}, {"t": "Direções e transporte", "r": [{"en": "Excuse me.", "tr": "Com licença.", "pr": "ekskiúz mi"}, {"en": "How do I get to ...?", "tr": "Como eu chego a ...?", "pr": "rráu du ái guét tu ...?"}, {"en": "Turn left. / Turn right.", "tr": "Vire à esquerda. / à direita.", "pr": "târn léft / târn ráit"}, {"en": "Go straight.", "tr": "Siga em frente.", "pr": "gôu strêit"}, {"en": "It's near. / It's far.", "tr": "É perto. / É longe.", "pr": "íts nír / íts fár"}, {"en": "Where is the bus stop?", "tr": "Onde fica o ponto de ônibus?", "pr": "uér iz dhâ bâs stáp?"}, {"en": "I'm lost.", "tr": "Estou perdido.", "pr": "áim lóst"}]}, {"t": "No trabalho", "r": [{"en": "I'm looking for a job.", "tr": "Estou procurando emprego.", "pr": "áim lúkin fór â djáb"}, {"en": "I have experience.", "tr": "Tenho experiência.", "pr": "ái rrév ekspíriâns"}, {"en": "What time do I start?", "tr": "A que horas eu começo?", "pr": "uát táim du ái stárt?"}, {"en": "I can work weekends.", "tr": "Posso trabalhar nos fins de semana.", "pr": "ái kén uârk uíkendz"}, {"en": "When is payday?", "tr": "Quando é o dia do pagamento?", "pr": "uén iz pêidêi?"}, {"en": "I need a day off.", "tr": "Preciso de um dia de folga.", "pr": "ái níd â dêi óf"}, {"en": "I'll be late.", "tr": "Vou me atrasar.", "pr": "áil bi lêit"}]}, {"t": "Saúde e emergências", "r": [{"en": "I need help.", "tr": "Preciso de ajuda.", "pr": "ái níd rrélp"}, {"en": "Call 911!", "tr": "Ligue para o 911!", "pr": "kól náin uân uân!"}, {"en": "I need a doctor.", "tr": "Preciso de um médico.", "pr": "ái níd â dáktâr"}, {"en": "It hurts here.", "tr": "Dói aqui.", "pr": "it rrârts rrír"}, {"en": "I'm allergic to ...", "tr": "Sou alérgico a ...", "pr": "áim âlârdjik tu ..."}, {"en": "Where is the hospital?", "tr": "Onde fica o hospital?", "pr": "uér iz dhâ rráspitâl?"}, {"en": "Pharmacy", "tr": "Farmácia", "pr": "fármâssi"}]}, {"t": "Ao telefone e consultas", "r": [{"en": "Can I speak to ...?", "tr": "Posso falar com ...?", "pr": "kén ái spík tu ...?"}, {"en": "I'd like to make an appointment.", "tr": "Gostaria de marcar uma consulta.", "pr": "áid láik tâ mêik ân âpóintmânt"}, {"en": "Can you call me back?", "tr": "Pode me ligar de volta?", "pr": "kén iú kól mi bék?"}, {"en": "My phone number is ...", "tr": "Meu número de telefone é ...", "pr": "mái fôun nâmbâr iz ..."}]}, {"t": "Cortesia e frases do dia a dia", "r": [{"en": "Please", "tr": "Por favor", "pr": "plíz"}, {"en": "Thank you very much.", "tr": "Muito obrigado.", "pr": "thênk iú véri mâtch"}, {"en": "You're welcome.", "tr": "De nada.", "pr": "iór uélkâm"}, {"en": "I'm sorry.", "tr": "Desculpe.", "pr": "áim sári"}, {"en": "No problem.", "tr": "Sem problema.", "pr": "nôu práblâm"}, {"en": "Of course.", "tr": "Claro.", "pr": "âv kórs"}, {"en": "I'm hungry. / I'm tired.", "tr": "Estou com fome. / Estou cansado.", "pr": "áim rrângri / áim táiârd"}, {"en": "What time is it?", "tr": "Que horas são?", "pr": "uát táim iz it?"}, {"en": "Today / Tomorrow / Yesterday", "tr": "Hoje / Amanhã / Ontem", "pr": "tâdêi / tâmárôu / iéstârdêi"}]}, {"t": "O básico em qualquer trabalho", "r": [{"en": "What time is my shift?", "tr": "Que horas é o meu turno?", "pr": "uát táim iz mái chift?"}, {"en": "Where do I clock in?", "tr": "Onde eu bato o ponto?", "pr": "uér du ái klák in?"}, {"en": "I finished. What's next?", "tr": "Terminei. O que faço agora?", "pr": "ái fínicht. uáts nékst?"}, {"en": "Can you show me how?", "tr": "Pode me mostrar como?", "pr": "kén iú chôu mi rráu?"}, {"en": "Can you say that again, slowly?", "tr": "Pode repetir, devagar?", "pr": "kén iú sêi dhét âguén, slôuli?"}, {"en": "I'm sick. I can't come today.", "tr": "Estou doente. Não posso ir hoje.", "pr": "áim sik. ái ként kâm tâdêi"}, {"en": "When do we get paid?", "tr": "Quando a gente recebe?", "pr": "uén du uí guét pêid?"}, {"en": "Is this overtime?", "tr": "Isso conta como hora extra?", "pr": "iz dhis ôuvârtáim?"}]}, {"t": "Segurança", "r": [{"en": "Be careful!", "tr": "Tome cuidado!", "pr": "bi kérfâl!"}, {"en": "Watch out!", "tr": "Cuidado!", "pr": "uátch áut!"}, {"en": "Wear your gloves / helmet / safety glasses.", "tr": "Use as luvas / o capacete / os óculos de proteção.", "pr": "uér iór glâvz / rrélmât / sêifti glésiz"}, {"en": "Someone is hurt. Call 911!", "tr": "Alguém se machucou. Ligue para o 911!", "pr": "sâmuân iz rrârt. kól náin uân uân!"}, {"en": "Where is the first aid kit?", "tr": "Onde fica o kit de primeiros socorros?", "pr": "uér iz dhâ fârst êid kit?"}, {"en": "The floor is wet.", "tr": "O chão está molhado.", "pr": "dhâ flór iz uét"}]}, {"t": "Construção", "r": [{"en": "Hand me the hammer / drill / ladder.", "tr": "Me passa o martelo / a furadeira / a escada.", "pr": "rrénd mi dhâ rrémâr / dril / lédâr"}, {"en": "Where do you want this?", "tr": "Onde você quer isto?", "pr": "uér du iú uánt dhis?"}, {"en": "How many do you need?", "tr": "Quantos você precisa?", "pr": "rráu méni du iú níd?"}, {"en": "We need more materials.", "tr": "Precisamos de mais material.", "pr": "uí níd mór mâtíriâlz"}, {"en": "It's ready. / It's finished.", "tr": "Está pronto. / Está terminado.", "pr": "íts rédi / íts fínicht"}]}, {"t": "Limpeza e hotéis", "r": [{"en": "Housekeeping!", "tr": "Serviço de quarto! (ao bater na porta)", "pr": "rráuskípin!"}, {"en": "Can I clean the room now?", "tr": "Posso limpar o quarto agora?", "pr": "kén ái klín dhâ rum náu?"}, {"en": "We need more towels / sheets.", "tr": "Precisamos de mais toalhas / lençóis.", "pr": "uí níd mór táuâlz / chíts"}, {"en": "Which products do I use?", "tr": "Quais produtos eu uso?", "pr": "uítch prádâkts du ái iúz?"}, {"en": "The vacuum is broken.", "tr": "O aspirador está quebrado.", "pr": "dhâ vékiúm iz brôukân"}]}, {"t": "Restaurante e cozinha", "r": [{"en": "Order up!", "tr": "Pedido pronto!", "pr": "órdâr âp!"}, {"en": "Behind you!", "tr": "Atrás de você!", "pr": "birráind iú!"}, {"en": "Hot! / Sharp knife!", "tr": "Quente! / Faca!", "pr": "rrát! / chárp náif!"}, {"en": "We're out of ...", "tr": "Acabou o/a ...", "pr": "uír áut âv ..."}, {"en": "How long for table five?", "tr": "Quanto falta para a mesa cinco?", "pr": "rráu lóng fór têibâl fáiv?"}]}, {"t": "Loja e atendimento", "r": [{"en": "Can I help you find something?", "tr": "Posso ajudar a encontrar alguma coisa?", "pr": "kén ái rrélp iú fáind sâmthin?"}, {"en": "It's in aisle three.", "tr": "Está no corredor três.", "pr": "íts in áil thrí"}, {"en": "Let me check in the back.", "tr": "Deixa eu ver no estoque.", "pr": "lét mi tchék in dhâ bék"}, {"en": "Cash or card?", "tr": "Dinheiro ou cartão?", "pr": "kéch ór kárd?"}, {"en": "Would you like a bag?", "tr": "Quer uma sacola?", "pr": "uúd iú láik â bég?"}]}, {"t": "Cuidar de pessoas e crianças", "r": [{"en": "Did you take your medicine?", "tr": "O senhor tomou o remédio?", "pr": "did iú têik iór médâssân?"}, {"en": "Are you hungry?", "tr": "Está com fome?", "pr": "ár iú rrângri?"}, {"en": "Let me help you stand up.", "tr": "Deixa eu ajudar o senhor a levantar.", "pr": "lét mi rrélp iú sténd âp"}, {"en": "Time for a nap. / Time for a bath.", "tr": "Hora da soneca. / Hora do banho.", "pr": "táim fór â nép / táim fór â béth"}, {"en": "Call me if you need anything.", "tr": "Me chame se precisar de alguma coisa.", "pr": "kól mi if iú níd énithin"}]}], "dialogs": [{"t": "No médico", "r": [{"who": "A", "en": "Hi, do you have an appointment?", "tr": "Oi, você tem consulta marcada?", "pr": "rrái, du iú rrév ân âpóintmânt?"}, {"who": "B", "en": "Yes, at ten o'clock. My name is Ana Souza.", "tr": "Sim, às dez. Meu nome é Ana Souza.", "pr": "iés, ét tén âklák. mái nêim iz Ana Souza"}, {"who": "A", "en": "What brings you in today?", "tr": "O que traz você aqui hoje?", "pr": "uát bríngz iú in tâdêi?"}, {"who": "B", "en": "I have a headache and a fever.", "tr": "Estou com dor de cabeça e febre.", "pr": "ái rrév â rrédêik énd â fívâr"}, {"who": "A", "en": "How long have you felt sick?", "tr": "Há quanto tempo você está doente?", "pr": "rráu lóng rrév iú félt sik?"}, {"who": "B", "en": "Since Monday.", "tr": "Desde segunda-feira.", "pr": "sins mândêi"}, {"who": "A", "en": "Are you taking any medicine?", "tr": "Está tomando algum remédio?", "pr": "ár iú têikin éni médâssân?"}, {"who": "B", "en": "No. I'm allergic to penicillin.", "tr": "Não. Sou alérgica a penicilina.", "pr": "nôu. áim âlârdjik tu pénâssílin"}]}, {"t": "Entrevista de emprego", "r": [{"who": "A", "en": "Tell me about yourself.", "tr": "Fale sobre você.", "pr": "tél mi âbáut iórsélf"}, {"who": "B", "en": "I'm a hard worker. I have five years of experience.", "tr": "Sou muito trabalhador. Tenho cinco anos de experiência.", "pr": "áim â rrárd uârkâr. ái rrév fáiv iírz âv ekspíriâns"}, {"who": "A", "en": "When can you start?", "tr": "Quando você pode começar?", "pr": "uén kén iú stárt?"}, {"who": "B", "en": "I can start on Monday.", "tr": "Posso começar na segunda-feira.", "pr": "ái kén stárt án mândêi"}, {"who": "A", "en": "Can you work weekends?", "tr": "Pode trabalhar nos fins de semana?", "pr": "kén iú uârk uíkendz?"}, {"who": "B", "en": "Yes, I can.", "tr": "Sim, posso.", "pr": "iés, ái kén"}, {"who": "A", "en": "The pay is fifteen dollars an hour.", "tr": "O pagamento é quinze dólares por hora.", "pr": "dhâ pêi iz fiftín dálârz ân áuâr"}, {"who": "B", "en": "That's great. Thank you for the opportunity.", "tr": "Ótimo. Obrigado pela oportunidade.", "pr": "dhéts grêit. thênk iú fór dhi apârtúnâri"}]}, {"t": "Ligar para o dono do apartamento", "r": [{"who": "A", "en": "Hi, this is João from apartment 4B.", "tr": "Oi, aqui é o João, do apartamento 4B.", "pr": "rrái, dhis iz João frâm âpártmânt fór bí"}, {"who": "B", "en": "Hi João. What's the problem?", "tr": "Oi, João. Qual é o problema?", "pr": "rrái João. uáts dhâ práblâm?"}, {"who": "A", "en": "The heater is not working.", "tr": "O aquecedor não está funcionando.", "pr": "dhâ rrírâr iz nát uârkin"}, {"who": "B", "en": "Since when?", "tr": "Desde quando?", "pr": "sins uén?"}, {"who": "A", "en": "Since yesterday. It's very cold.", "tr": "Desde ontem. Está muito frio.", "pr": "sins iéstârdêi. íts véri kôuld"}, {"who": "B", "en": "I'll send someone tomorrow morning.", "tr": "Vou mandar alguém amanhã de manhã.", "pr": "áil sénd sâmuân tâmárôu mórnin"}, {"who": "A", "en": "Thank you. What time?", "tr": "Obrigado. A que horas?", "pr": "thênk iú. uát táim?"}, {"who": "B", "en": "Around nine.", "tr": "Lá pelas nove.", "pr": "ârráund náin"}]}, {"t": "No restaurante", "r": [{"who": "A", "en": "Hi! Are you ready to order?", "tr": "Oi! Vocês já vão pedir?", "pr": "rrái! ár iú rédi tâ órdâr?"}, {"who": "B", "en": "Yes. I'd like the chicken, please.", "tr": "Sim. Eu quero o frango, por favor.", "pr": "iés. áid láik dhâ tchíkân, plíz"}, {"who": "A", "en": "What would you like to drink?", "tr": "O que vão beber?", "pr": "uát uúd iú láik tâ drínk?"}, {"who": "B", "en": "Just water, please.", "tr": "Só água, por favor.", "pr": "djâst uórâr, plíz"}, {"who": "A", "en": "Anything else?", "tr": "Mais alguma coisa?", "pr": "énithin éls?"}, {"who": "B", "en": "No, thank you. Can we have the check?", "tr": "Não, obrigado. Pode trazer a conta?", "pr": "nôu, thênk iú. kén uí rrév dhâ tchék?"}]}, {"t": "Na escola dos meus filhos", "r": [{"who": "A", "en": "Hello, I'm Ms. Smith, Sofia's teacher.", "tr": "Olá, sou a Sra. Smith, professora da Sofia.", "pr": "rrelôu, áim miz smith, sôufíâz títchâr"}, {"who": "B", "en": "Nice to meet you. How is Sofia doing?", "tr": "Prazer. Como a Sofia está indo?", "pr": "náis tâ mít iú. rráu iz sôufíâ dúin?"}, {"who": "A", "en": "She's doing very well in math.", "tr": "Ela está indo muito bem em matemática.", "pr": "chiz dúin véri uél in méth"}, {"who": "B", "en": "And in reading?", "tr": "E em leitura?", "pr": "énd in rídin?"}, {"who": "A", "en": "She needs more practice at home.", "tr": "Ela precisa praticar mais em casa.", "pr": "chi nídz mór préktis ét rrôum"}, {"who": "B", "en": "OK. How can I help her?", "tr": "Certo. Como posso ajudá-la?", "pr": "ôukêi. rráu kén ái rrélp rrâr?"}, {"who": "A", "en": "Read with her for twenty minutes every day.", "tr": "Leia com ela vinte minutos todos os dias.", "pr": "ríd uíth rrâr fór tuénti mínâts évri dêi"}]}, {"t": "Na farmácia", "r": [{"who": "A", "en": "Hi, I need to pick up a prescription.", "tr": "Oi, preciso pegar um remédio com receita.", "pr": "rrái, ái níd tâ pik âp â priskrípchân"}, {"who": "B", "en": "What's your name and date of birth?", "tr": "Seu nome e data de nascimento?", "pr": "uáts iór nêim énd dêit âv bârth?"}, {"who": "A", "en": "Maria Silva. May third, 1985.", "tr": "Maria Silva. 3 de maio de 1985.", "pr": "mâríâ sílvâ. mêi thârd, náintín êiri fáiv"}, {"who": "B", "en": "Do you have insurance?", "tr": "Você tem plano de saúde?", "pr": "du iú rrév inchúrâns?"}, {"who": "A", "en": "Yes, here is my card.", "tr": "Sim, aqui está o meu cartão.", "pr": "iés, rrír iz mái kárd"}, {"who": "B", "en": "Take one pill twice a day with food.", "tr": "Tome um comprimido duas vezes ao dia com comida.", "pr": "têik uân pil tuáis â dêi uíth fud"}, {"who": "A", "en": "Thank you.", "tr": "Obrigada.", "pr": "thênk iú"}]}]}};
+const UI = {
+  es:{title:"Inglés rápido",subtitle:"Escucha, repite y practica. Toca 🔊 para oír la frase; 🐢 para oírla despacio.",
+      phrases:"Frases",dialogs:"Diálogos",quiz:"Quiz",playall:"▶ Escuchar todo el diálogo",
+      noaudio:"Este navegador no puede reproducir audio. Prueba abrir la página en Chrome o Safari.",
+      m1:"🔊 Escucha y elige",m2:"📖 Lee y elige",listen:"🔊 Escuchar",q1:"¿Qué significa?",q2:"¿Qué significa esta frase?",
+      ok:"¡Correcto! 🎉",bad:"Casi. La respuesta es:",next:"Siguiente →",score:"Puntos",all:"Todas",course:"Paso a paso",docs:"📄 Descargar las guías (PDF) para leer e imprimir",docsSub:"Frases, sonidos, diálogos, trabajo, plan de 30 días y tarjetas de estudio.",docsUrl:"https://drive.google.com/drive/folders/14MzDWLDRbOuMLTEUIXSF7ITOZbqtVDbO",read:"Leer palabras",sounds:"Sonidos",rtitle:"Lee cualquier palabra",rintro2:"Escribe una palabra o frase en inglés y te mostramos cómo se lee con letras del español, parte por parte.",ph:"Escribe en inglés…",go:"Leer",rnote:"La escritura es una guía aproximada. Si el audio suena distinto, sigue el audio.",parts:"Parte por parte",mute:"(no suena)",try:"Prueba:",stitle:"Los sonidos del inglés",sintro:"Empieza con los sonidos que ya tienes en español. Luego practica los sonidos nuevos: lee cómo poner la boca y toca cada palabra para escucharla.",newl:"Sonido nuevo",easyl:"Ya lo sabes",
+      ctitle:"Tu curso de 30 días",cintro:"Unos minutos al día. Escucha, repite en voz alta, haz el quiz y úsalo en la vida real. Ve a tu ritmo.",
+      start:"Empezar el día",cont:"Continuar: día",day:"Día",review:"Repaso",back:"← Todos los días",
+      s1:"Paso 1 · Escucha y repite en voz alta",s1b:"Toca 🔊, repite la frase 3 veces y marca ✓.",said:"✓ Lo dije en voz alta",
+      s2:"Paso 2 · Quiz rápido",s3:"Paso 3 · Úsalo hoy",chal:"Reto de hoy: usa esta frase con una persona real, en el trabajo, en la tienda o con un amigo:",
+      finish:"✔ Terminé el día",done:"¡Día completado! 🎉",again:"Repetir el día",rintro:"Repaso de la semana: responde 8 preguntas con las frases que ya aprendiste.",
+      complete:"días completados",legend:"Los cuadros con borde punteado son días de repaso.",dlg:"Diálogo de hoy: escúchalo y léelo en voz alta.",reset:"Borrar mi progreso",
+      fin:"🏆 ¡Terminaste los 30 días! Ahora repite los días que te costaron más."},
+  pt:{title:"Inglês rápido",subtitle:"Ouça, repita e pratique. Toque em 🔊 para ouvir a frase; 🐢 para ouvir devagar.",
+      phrases:"Frases",dialogs:"Diálogos",quiz:"Quiz",playall:"▶ Ouvir o diálogo inteiro",
+      noaudio:"Este navegador não consegue tocar áudio. Tente abrir a página no Chrome ou no Safari.",
+      m1:"🔊 Ouça e escolha",m2:"📖 Leia e escolha",listen:"🔊 Ouvir",q1:"O que significa?",q2:"O que significa esta frase?",
+      ok:"Correto! 🎉",bad:"Quase. A resposta é:",next:"Próxima →",score:"Pontos",all:"Todas",course:"Passo a passo",docs:"📄 Baixar os guias (PDF) para ler e imprimir",docsSub:"Frases, sons, diálogos, trabalho, plano de 30 dias e cartões de estudo.",docsUrl:"https://drive.google.com/drive/folders/15DzY5HW7lW2SV9eFCP0AccOgKpn8FP_b",read:"Ler palavras",sounds:"Sons",rtitle:"Leia qualquer palavra",rintro2:"Escreva uma palavra ou frase em inglês e mostramos como se lê com letras do português, parte por parte.",ph:"Escreva em inglês…",go:"Ler",rnote:"A escrita é um guia aproximado. Se o áudio soar diferente, siga o áudio.",parts:"Parte por parte",mute:"(não soa)",try:"Experimente:",stitle:"Os sons do inglês",sintro:"Comece com os sons que você já tem em português. Depois pratique os sons novos: leia como posicionar a boca e toque em cada palavra para ouvir.",newl:"Som novo",easyl:"Você já sabe",
+      ctitle:"Seu curso de 30 dias",cintro:"Alguns minutos por dia. Ouça, repita em voz alta, faça o quiz e use na vida real. No seu ritmo.",
+      start:"Começar o dia",cont:"Continuar: dia",day:"Dia",review:"Revisão",back:"← Todos os dias",
+      s1:"Passo 1 · Ouça e repita em voz alta",s1b:"Toque em 🔊, repita a frase 3 vezes e marque ✓.",said:"✓ Eu falei em voz alta",
+      s2:"Passo 2 · Quiz rápido",s3:"Passo 3 · Use hoje",chal:"Desafio de hoje: use esta frase com uma pessoa de verdade, no trabalho, na loja ou com um amigo:",
+      finish:"✔ Terminei o dia",done:"Dia completo! 🎉",again:"Repetir o dia",rintro:"Revisão da semana: responda 8 perguntas com as frases que você já aprendeu.",
+      complete:"dias completos",legend:"Os quadrados com borda pontilhada são dias de revisão.",dlg:"Diálogo de hoje: ouça e leia em voz alta.",reset:"Apagar meu progresso",
+      fin:"🏆 Você terminou os 30 dias! Agora repita os dias que foram mais difíceis."}
+};
+let lang="es", tab="course", cat=0, dcat=0, mode=1, score=0, total=0, cur=null;
+try{const s=localStorage.getItem("ef-lang"); if(s==="pt"||s==="es") lang=s;}catch(e){}
+let locked="es"; lang="es";
+function readHash(){ return; const h=(location.hash||"").replace("#",""); locked=(h==="espanol"||h==="es")?"es":(h==="portugues"||h==="pt")?"pt":null; if(locked) lang=locked; }
+readHash();
+const $=id=>document.getElementById(id);
+const synth = window.speechSynthesis;
+let voice=null;
+function pickVoice(){ if(!synth) return; const v=synth.getVoices(); voice=v.find(x=>x.lang==="en-US"&&/Samantha|Google US|Aria|Jenny/i.test(x.name))||v.find(x=>x.lang==="en-US")||v.find(x=>x.lang&&x.lang.startsWith("en"))||null; }
+if(synth){pickVoice(); synth.onvoiceschanged=pickVoice;}
+function clean(t){return t.replace(/\.\.\./g," ").replace(/\s\/\s/g,", ").replace(/\(.*?\)/g,"");}
+function speak(t,rate,onend){
+  if(!synth){$("noaudio").classList.remove("hidden");return;}
+  try{synth.cancel(); const u=new SpeechSynthesisUtterance(clean(t)); u.lang="en-US"; if(voice) u.voice=voice; u.rate=rate||0.9; if(onend) u.onend=onend; synth.speak(u);}catch(e){$("noaudio").classList.remove("hidden");}
+}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
+function card(r,who,extra){
+  return `<div class="card">${who?`<div class="who">${esc(who)}</div>`:""}<div class="txt"><div class="en">${esc(r.en)}</div><div class="pr">${esc(r.pr)}</div><div class="tr">${esc(r.tr)}</div>${extra||""}</div>
+  <div class="btns"><button class="play" aria-label="Play" data-say="${esc(r.en)}" data-rate="0.9">🔊</button><button class="play slow" aria-label="Slow" data-say="${esc(r.en)}" data-rate="0.6">🐢</button></div></div>`;
+}
+function chips(el,items,sel,fn){
+  el.innerHTML=items.map((t,i)=>`<button aria-pressed="${i===sel}" data-i="${i}">${esc(t)}</button>`).join("");
+  el.onclick=e=>{const b=e.target.closest("button"); if(b) fn(+b.dataset.i);};
+}
+function renderPhrases(){
+  const P=DATA[lang].phrases; chips($("cats"),P.map(s=>s.t),cat,i=>{cat=i;renderPhrases();});
+  $("list").innerHTML=P[cat].r.map(r=>card(r)).join("");
+}
+function renderDialogs(){
+  const D=DATA[lang].dialogs; chips($("dcats"),D.map(s=>s.t),dcat,i=>{dcat=i;renderDialogs();});
+  $("dlist").innerHTML=`<button class="playall" id="playall">${UI[lang].playall}</button>`+D[dcat].r.map(r=>card(r,r.who)).join("");
+  $("playall").onclick=()=>{const rows=D[dcat].r; let i=0; const go=()=>{if(i<rows.length){speak(rows[i++].en,0.85,()=>setTimeout(go,500));}}; go();};
+}
+function pool(){return DATA[lang].phrases.flatMap(s=>s.r).filter(r=>!/\.\.\./.test(r.en));}
+function newQ(){
+  const p=pool(); const a=p[Math.floor(Math.random()*p.length)];
+  const opts=new Set([a.tr]); while(opts.size<4){opts.add(p[Math.floor(Math.random()*p.length)].tr);}
+  cur={a,opts:[...opts].sort(()=>Math.random()-.5),done:false}; renderQuiz();
+  if(mode===1) speak(a.en,0.85);
+}
+function renderQuiz(){
+  const u=UI[lang];
+  chips($("modes"),[u.m1,u.m2],mode-1,i=>{mode=i+1;newQ();});
+  if(!cur){newQ();return;}
+  const showEn = mode===2 || cur.done;
+  $("quiz").innerHTML=`<div class="qhead"><span>${mode===1?u.q1:u.q2}</span><span>${u.score}: ${score}/${total}</span></div>
+   <div class="row"><button class="play" data-say="${esc(cur.a.en)}" data-rate="0.85" aria-label="Play">🔊</button><button class="play slow" data-say="${esc(cur.a.en)}" data-rate="0.6" aria-label="Slow">🐢</button></div>
+   ${showEn?`<div class="qen">${esc(cur.a.en)}</div><div class="pr">${esc(cur.a.pr)}</div>`:""}
+   <div class="opts">${cur.opts.map(o=>`<button data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div>
+   <div class="fb" id="fb"></div>${cur.done?`<button class="next" id="next">${u.next}</button>`:""}`;
+  $("quiz").querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{
+    if(cur.done) return; cur.done=true; total++; const right=b.dataset.o===cur.a.tr; if(right) score++;
+    renderQuiz();
+    $("quiz").querySelectorAll(".opts button").forEach(x=>{ if(x.dataset.o===cur.a.tr) x.classList.add("ok"); else if(x.dataset.o===b.dataset.o) x.classList.add("bad"); });
+    $("fb").textContent= right? u.ok : `${u.bad} ${cur.a.tr}`;
+    speak(cur.a.en,0.85);
+  });
+  const n=$("next"); if(n) n.onclick=newQ;
+}
+
+
+/* ---------- read any word ---------- */
+let readText="";
+const TRY=["night","station","knife","phone","computer","delicious","beach","purple","careful","highway"];
+function soundFor(p){ const b=p.replace("1",""); return SOUNDS[lang].find(s=>s.ph&&s.ph.includes(b)); }
+function renderRead(){
+  const u=UI[lang], T=TIPS[lang], el=$("view-read");
+  const words=readText.trim().split(/\s+/).filter(Boolean).slice(0,8);
+  let res="";
+  if(words.length){
+    const full=ENG.pronounceText(words.join(" "),lang);
+    res+=`<div class="res"><div class="en">${esc(words.join(" "))}</div><div class="big2">${esc(full)}</div>
+      <div class="row"><button class="play" data-say="${esc(words.join(" "))}" data-rate="0.85">🔊</button><button class="play slow" data-say="${esc(words.join(" "))}" data-rate="0.55">🐢</button></div>
+      <p class="sub" style="margin:10px 0 0">${u.rnote}</p></div>`;
+    words.forEach(wd=>{
+      const a=ENG.analyze(wd); if(!a) return;
+      res+=`<div class="res"><div class="row" style="justify-content:space-between"><div><div class="en">${esc(wd)}</div><div class="pr">${esc(ENG.render(ENG.flat(a.chunks),lang))}</div></div><button class="play" data-say="${esc(wd)}" data-rate="0.75">🔊</button></div>`;
+      if(a.irregular){ const nn=[...new Set(a.chunks[0].ph.map(soundFor).filter(Boolean))]; res+=`<div class="irr">⚠ ${T.irregular}</div>${nn.length?`<div class="t" style="margin-top:8px">${nn.map(n=>`<button class="nw" data-snd="${n.id}">${u.newl}: ${esc(n.name)} →</button>`).join(" ")}</div>`:""}`; }
+      else{
+        res+=`<div class="step" style="margin-top:10px">${u.parts}</div><div class="chunks">`;
+        a.chunks.forEach(ch=>{
+          const s=ch.ph.length?(ch.g==="n"&&ch.ph[0]==="NG"?"n":ENG.render(ch.ph,lang)):u.mute;
+          const tip=T[ch.tag]||"";
+          const news=[...new Set(ch.ph.map(soundFor).filter(Boolean))];
+          res+=`<div class="ck"><b>${esc(ch.g)}</b><span>→</span><span class="s">${esc(s)}</span>${tip||news.length?`<div class="t">${tip}${news.map(n=>` <button class="nw" data-snd="${n.id}">${u.newl}: ${esc(n.name)} →</button>`).join("")}</div>`:""}</div>`;
+        });
+        res+=`</div>`;
+      }
+      res+=`</div>`;
+    });
+  }
+  el.innerHTML=`<h2 style="margin-top:4px">${u.rtitle}</h2><p class="sub">${u.rintro2}</p>
+   <form class="inp" id="rform"><input id="rin" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="${u.ph}" value="${esc(readText)}"><button>${u.go}</button></form>
+   ${words.length?"":`<div class="sub">${u.try}</div><div class="exs" style="margin-bottom:12px">${TRY.map(w=>`<button class="ex" data-try="${w}">${w}</button>`).join("")}</div>`}
+   ${res}`;
+  $("rform").onsubmit=e=>{e.preventDefault(); readText=$("rin").value; renderRead(); const w=readText.trim(); if(w) speak(w,0.85);};
+  el.querySelectorAll("[data-try]").forEach(b=>b.onclick=()=>{readText=b.dataset.try; renderRead(); speak(readText,0.85);});
+  el.querySelectorAll("[data-snd]").forEach(b=>b.onclick=()=>{goSound(b.dataset.snd);});
+}
+function goSound(id){ tab="sounds"; render(); const c=document.getElementById("snd-"+id); if(c){ c.scrollIntoView({behavior:"smooth",block:"center"}); c.classList.add("flash"); } }
+function renderSounds(){
+  const u=UI[lang], el=$("view-sounds");
+  el.innerHTML=`<h2 style="margin-top:4px">${u.stitle}</h2><p class="sub">${u.sintro}</p>`+SOUNDS[lang].map(s=>`<div class="snd ${s.easy?"easy":""}" id="snd-${s.id}"><div class="badge" style="${s.easy?"":"color:var(--accent)"}">${s.easy?u.easyl:u.newl}</div><h3>${esc(s.name)}</h3><p>${esc(s.how)}</p>
+    <div class="exs">${s.ex.map(w=>`<button class="ex" data-say="${esc(w)}" data-rate="0.75">🔊 <span>${esc(w)}</span> <i>${esc(ENG.pronounceText(w,lang))}</i></button>`).join("")}</div></div>`).join("");
+}
+
+/* ---------- 30-day course ---------- */
+const REVIEW=[7,14,21,28,30];
+const DLG_DAY={6:3,12:5,17:1,23:0,25:2,26:4};
+function plan(){
+  const all=DATA[lang].phrases.flatMap(s=>s.r);
+  const learn=[]; for(let d=1;d<=30;d++) if(!REVIEW.includes(d)) learn.push(d);
+  const per=Math.ceil(all.length/learn.length), days={};
+  learn.forEach((d,i)=>{days[d]={type:"learn",items:all.slice(i*per,(i+1)*per)};});
+  REVIEW.forEach(d=>{const prev=learn.filter(x=>x<d&&x>d-(d===30?30:7)).flatMap(x=>days[x].items);days[d]={type:"review",items:prev};});
+  for(const d in days){ if(!days[d].items.length) days[d].items=all.slice(0,5); }
+  return days;
+}
+function getDone(){try{return JSON.parse(localStorage.getItem("ef-done-"+lang)||"[]");}catch(e){return [];}}
+function setDone(a){try{localStorage.setItem("ef-done-"+lang,JSON.stringify(a));}catch(e){}}
+let openDay=null, dq=null;
+function renderCourse(){
+  const u=UI[lang], el=$("view-course"), done=getDone();
+  if(openDay){renderDay();return;}
+  const nextDay=[...Array(30).keys()].map(i=>i+1).find(d=>!done.includes(d))||null;
+  el.innerHTML=`<h2 style="margin-top:4px">${u.ctitle}</h2><p class="sub">${u.cintro}</p>
+   <div class="prog"><i style="width:${done.length/30*100}%"></i></div>
+   <div class="sub">${done.length}/30 ${u.complete}</div>
+   ${nextDay?`<button class="big" id="go">${done.length?u.cont+" "+nextDay:u.start+" 1"} →</button>`:`<div class="challenge">${u.fin}</div>`}
+   <div class="days">${[...Array(30).keys()].map(i=>{const d=i+1;return `<button class="day ${done.includes(d)?"done":""} ${REVIEW.includes(d)?"rev":""} ${d===nextDay?"next":""}" data-d="${d}">${done.includes(d)?"✓":d}</button>`}).join("")}</div>
+   <div class="legend">${u.legend}</div>
+   <a class="docs" href="${u.docsUrl}" target="_blank" rel="noopener"><b>${u.docs}</b><span>${u.docsSub}</span></a>
+   <button class="ghost" id="reset" style="margin-top:14px">${u.reset}</button>`;
+  el.querySelectorAll(".day").forEach(b=>b.onclick=()=>{openDay=+b.dataset.d;dq=null;renderCourse();window.scrollTo(0,0);});
+  const g=$("go"); if(g) g.onclick=()=>{openDay=nextDay;dq=null;renderCourse();window.scrollTo(0,0);};
+  $("reset").onclick=()=>{ if($("reset").dataset.sure){setDone([]);renderCourse();} else {$("reset").dataset.sure=1;$("reset").textContent="⚠ "+u.reset+"?";} };
+}
+function mkQuiz(items,n){
+  const P=pool(); const pick=[...items].filter(r=>!/\.\.\./.test(r.en)).sort(()=>Math.random()-.5).slice(0,n);
+  return {qs:pick.map(a=>{const o=new Set([a.tr]);let g=0;while(o.size<4&&g++<200)o.add(P[Math.floor(Math.random()*P.length)].tr);return {a,opts:[...o].sort(()=>Math.random()-.5),pick:null};}),i:0,right:0};
+}
+function renderDay(){
+  const u=UI[lang], el=$("view-course"), days=plan(), D=days[openDay], done=getDone();
+  if(!dq) dq=mkQuiz(D.items, D.type==="review"?8:3);
+  let html=`<button class="ghost" id="back">${u.back}</button><h2 style="margin-top:0">${u.day} ${openDay}${D.type==="review"?" · "+u.review:""}</h2>`;
+  if(D.type==="learn"){
+    html+=`<div class="step">${u.s1}</div><p class="sub">${u.s1b}</p>`+D.items.map((r,k)=>card(r,null,`<button class="said" data-k="${k}" aria-pressed="false">${u.said}</button>`)).join("");
+    if(DLG_DAY[openDay]!==undefined){const dl=DATA[lang].dialogs[DLG_DAY[openDay]]; html+=`<div class="step" style="margin-top:14px">${u.dlg}</div><h2>${esc(dl.t)}</h2><button class="playall" id="dplay">${u.playall}</button>`+dl.r.map(r=>card(r,r.who)).join("");}
+    html+=`<div class="step" style="margin-top:14px">${u.s2}</div>`;
+  } else html+=`<p class="sub">${u.rintro}</p>`;
+  const q=dq.qs[dq.i];
+  if(q){
+    html+=`<div class="quiz"><div class="qhead"><span>${dq.i+1}/${dq.qs.length}</span><span>${u.score}: ${dq.right}</span></div>
+      <div class="row"><button class="play" data-say="${esc(q.a.en)}" data-rate="0.85">🔊</button><button class="play slow" data-say="${esc(q.a.en)}" data-rate="0.6">🐢</button></div>
+      <div class="qen">${esc(q.a.en)}</div>
+      <div class="opts">${q.opts.map(o=>`<button data-o="${esc(o)}" class="${q.pick?(o===q.a.tr?"ok":(o===q.pick?"bad":"")):""}">${esc(o)}</button>`).join("")}</div>
+      <div class="fb">${q.pick?(q.pick===q.a.tr?u.ok:u.bad+" "+esc(q.a.tr)):""}</div>${q.pick?`<button class="next" id="qnext">${u.next}</button>`:""}</div>`;
+  } else {
+    const ch=D.items[Math.floor(openDay*7)%D.items.length];
+    html+=`<div class="quiz"><div class="qen">${dq.right}/${dq.qs.length} ⭐</div></div>
+      ${D.type==="learn"?`<div class="step" style="margin-top:14px">${u.s3}</div><div class="challenge">${u.chal}<div class="en" style="margin-top:8px">${esc(ch.en)}</div><div class="pr">${esc(ch.pr)}</div></div>`:""}
+      ${done.includes(openDay)?`<div class="challenge">${u.done}</div><button class="next" id="again">${u.again}</button>`:`<button class="big" id="finish">${u.finish}</button>`}`;
+  }
+  el.innerHTML=html;
+  $("back").onclick=()=>{openDay=null;renderCourse();};
+  el.querySelectorAll(".said").forEach(b=>b.onclick=()=>b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")!=="true"));
+  const dp=$("dplay"); if(dp) dp.onclick=()=>{const rows=DATA[lang].dialogs[DLG_DAY[openDay]].r;let i=0;const go=()=>{if(i<rows.length)speak(rows[i++].en,0.85,()=>setTimeout(go,500));};go();};
+  if(q && !q.pick) el.querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{q.pick=b.dataset.o; if(q.pick===q.a.tr) dq.right++; speak(q.a.en,0.85); renderDayKeep();});
+  const qn=$("qnext"); if(qn) qn.onclick=()=>{dq.i++; renderDayKeep();};
+  const f=$("finish"); if(f) f.onclick=()=>{const d=getDone(); if(!d.includes(openDay)) d.push(openDay); setDone(d); renderDayKeep();};
+  const a=$("again"); if(a) a.onclick=()=>{dq=null; renderCourse(); window.scrollTo(0,0);};
+}
+function renderDayKeep(){const y=window.scrollY; const saids=[...document.querySelectorAll(".said")].map(b=>b.getAttribute("aria-pressed")); renderDay(); document.querySelectorAll(".said").forEach((b,i)=>{if(saids[i])b.setAttribute("aria-pressed",saids[i]);}); window.scrollTo(0,y);}
+
+function render(){
+  const u=UI[lang]; document.documentElement.lang=lang;
+  document.querySelector(".seg").classList.toggle("hidden",!!locked);
+  $("title").textContent=u.title; $("subtitle").textContent=u.subtitle; $("noaudio").textContent=u.noaudio;
+  $("tab-course").textContent=u.course; $("tab-read").textContent=u.read; $("tab-sounds").textContent=u.sounds; $("tab-phrases").textContent=u.phrases; $("tab-dialogs").textContent=u.dialogs; $("tab-quiz").textContent=u.quiz;
+  $("lang-es").setAttribute("aria-pressed",lang==="es"); $("lang-pt").setAttribute("aria-pressed",lang==="pt");
+  document.querySelectorAll("nav button").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===tab));
+  ["course","read","sounds","phrases","dialogs","quiz"].forEach(t=>$("view-"+t).classList.toggle("hidden",t!==tab));
+  if(tab==="course") renderCourse(); else if(tab==="read") renderRead(); else if(tab==="sounds") renderSounds(); else if(tab==="phrases") renderPhrases(); else if(tab==="dialogs") renderDialogs(); else renderQuiz();
+}
+function setLang(l){lang=l; cur=null; openDay=null; dq=null; score=0; total=0; try{localStorage.setItem("ef-lang",l);}catch(e){} render();}
+window.addEventListener("hashchange",()=>{const old=lang; readHash(); if(locked&&locked!==old) setLang(locked); else render();});
+$("lang-es").onclick=()=>setLang("es"); $("lang-pt").onclick=()=>setLang("pt");
+document.querySelector("nav").onclick=e=>{const b=e.target.closest("button"); if(b){tab=b.dataset.tab; if(synth) synth.cancel(); render();}};
+document.addEventListener("click",e=>{const b=e.target.closest("[data-say]"); if(b) speak(b.dataset.say,+b.dataset.rate);});
+if(!synth) $("noaudio").classList.remove("hidden");
+(function(){const st=window.matchMedia('(display-mode: standalone)').matches||navigator.standalone;let dis=false;try{dis=localStorage.getItem('ef-inst-x')==='1'}catch(e){}
+ if(!st&&!dis)$("inst").classList.remove("hidden");
+ let dp=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e;$("instgo").classList.remove("hidden");});
+ $("instgo").onclick=()=>{if(dp){dp.prompt();dp=null;$("inst").classList.add("hidden");}};
+ $("instx").onclick=()=>{$("inst").classList.add("hidden");try{localStorage.setItem('ef-inst-x','1')}catch(e){}};})();
+render();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+</script>
+</body>
+</html>
